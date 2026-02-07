@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using HelloMotors.Data;
 using HelloMotors.Repository;
+using HelloMotors.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddScoped<VendedorRepository>();
+
+builder.Services.AddScoped<VendedorService>();
 
 var app = builder.Build();
 
