@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-namespace AutoCars.Models;
+namespace HelloMotors.Model;
 
 public class Vendedor
 {

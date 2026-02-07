@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-namespace AutoCars.Models;
+namespace HelloMotors.Model;
 
 public class Proprietario
 {

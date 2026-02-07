@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 using Microsoft.VisualBasic;
-namespace AutoCars.Models;
+namespace HelloMotors.Model;
 
 public class Veiculo
 {
