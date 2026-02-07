@@ -1,0 +1,6 @@
+@HelloMotors_HostAddress = http://localhost:5097
+
+GET {{HelloMotors_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
