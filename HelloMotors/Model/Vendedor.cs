@@ -10,6 +10,8 @@ public class Vendedor
     [MaxLength(100)] //tamanho máximo
     public string? Nome { get; set; }
     public decimal SalarioBase { get; set; }
+
+    //Calcular a comissão
 }
 
 
