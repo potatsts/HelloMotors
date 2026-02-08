@@ -1,3 +1,5 @@
+using AutoMapper;
+using Dto;
 using HelloMotors.Data;
 using HelloMotors.Model;
 using Microsoft.EntityFrameworkCore;
@@ -7,9 +9,11 @@ namespace HelloMotors.Repository;
 public class VeiculoRepository
 {
     private AppDbContext _context;
-    public VeiculoRepository(AppDbContext context)
+    private IMapper _mapper;
+    public VeiculoRepository(AppDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
     public async Task<List<Veiculo>> ListarAsync()
     {
@@ -21,23 +25,15 @@ public class VeiculoRepository
         await _context.SaveChangesAsync();
         return veiculo;
     }
-    public async Task<Veiculo?> AtualizarAsync(int id, Veiculo veiculoAtualizado)
+    public async Task<Veiculo?> AtualizarAsync(int id, AtualizarVeiculoDto dto)
     {
         var veiculo = await _context.Veiculos.FindAsync(id);
         if (veiculo == null)
         {
-            throw new Exception();
+            return null;
         }
 
-        veiculo.Chassi = veiculoAtualizado.Chassi;
-        veiculo.Modelo = veiculoAtualizado.Modelo;
-        veiculo.VersaoSistema = veiculoAtualizado.VersaoSistema;
-        veiculo.Ano = veiculoAtualizado.Ano;
-        veiculo.Cor = veiculoAtualizado.Cor;
-        veiculo.Quilometragem = veiculoAtualizado.Quilometragem;
-        veiculo.Valor = veiculoAtualizado.Valor;
-        veiculo.Acessorios = veiculoAtualizado.Acessorios;
-        veiculo.IdProprietario = veiculoAtualizado.IdProprietario;
+        _mapper.Map(dto, veiculo);
 
         await _context.SaveChangesAsync();
         return veiculo;
