@@ -19,10 +19,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<VendedorRepository>();
 builder.Services.AddScoped<ProprietarioRepository>();
 builder.Services.AddScoped<VeiculoRepository>();
+builder.Services.AddScoped<VendaRepository>();
 
 builder.Services.AddScoped<VendedorService>();
 builder.Services.AddScoped<ProprietarioService>();
 builder.Services.AddScoped<VeiculoService>();
+builder.Services.AddScoped<VendaService>();
 
 var app = builder.Build();
 
