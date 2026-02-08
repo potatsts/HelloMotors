@@ -35,11 +35,7 @@ public class VeiculoService
     {
         var veiculoAtualizado = new Veiculo
         {
-            Chassi = dto.Chassi,
-            Modelo = dto.Modelo,
             VersaoSistema = dto.VersaoSistema,
-            Ano = dto.Ano,
-            Cor = dto.Cor,
             Quilometragem = dto.Quilometragem,
             Valor = dto.Valor,
             Acessorios = dto.Acessorios,

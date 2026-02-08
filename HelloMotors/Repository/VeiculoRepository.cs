@@ -29,11 +29,7 @@ public class VeiculoRepository
             throw new Exception();
         }
 
-        veiculo.Chassi = veiculoAtualizado.Chassi;
-        veiculo.Modelo = veiculoAtualizado.Modelo;
         veiculo.VersaoSistema = veiculoAtualizado.VersaoSistema;
-        veiculo.Ano = veiculoAtualizado.Ano;
-        veiculo.Cor = veiculoAtualizado.Cor;
         veiculo.Quilometragem = veiculoAtualizado.Quilometragem;
         veiculo.Valor = veiculoAtualizado.Valor;
         veiculo.Acessorios = veiculoAtualizado.Acessorios;
