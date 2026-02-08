@@ -32,4 +32,28 @@ public class VendaRepository
         await _context.SaveChangesAsync();
         return venda;
     }
+
+    public async Task<Venda> InserirAsync(Venda venda)
+    {
+        _context.Vendas.Add(venda);
+        await _context.SaveChangesAsync();
+        return venda;
+    }
+
+    public async Task<Venda?> AtualizarAsync(int id, Venda vendaAtualizada)
+    {
+        var venda = await _context.Vendas.FindAsync(id);
+        if (venda == null)
+        {
+            throw new Exception();
+        }
+
+        venda.IdChassi = vendaAtualizada.IdChassi;
+        venda.IdVendedor = vendaAtualizada.IdVendedor;
+        venda.DataVenda = vendaAtualizada.DataVenda;
+        venda.ValorFinal = vendaAtualizada.ValorFinal;
+
+        await _context.SaveChangesAsync();
+        return venda;
+    }
 }

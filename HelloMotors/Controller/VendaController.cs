@@ -23,8 +23,24 @@ public class VendaController : ControllerBase
     }
 
     //Post --> adicionar uma nova venda (relacionando veículo e vendedor)
+    [HttpPost]
+    public async Task<ActionResult<Venda>> InserirAsync(CadastrarVendaDto dto)
+    {
+        var venda = await _servico.InserirAsync(dto);
+        return Ok(venda);
+    }
 
     //Put --> atualizar dados de uma venda
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Venda>> AtualizarAsync(int id, AtualizarVendaDto dto)
+    {
+        var venda = await _servico.AtualizarAsync(id, dto);
+        if (venda == null)
+        {
+            return NotFound("Venda não encontrada");
+        }
+        return Ok(venda);
+    }
     
     //Delete --> deletar uma venda
     [HttpDelete("{id}")]

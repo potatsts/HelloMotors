@@ -26,13 +26,11 @@ public class VendedorRepository
         return vendedor;
     }
 
-    public async Task<Vendedor> AtualizarAsync(int id, Vendedor vendedorAtualizado)
+    public async Task<Vendedor?> AtualizarAsync(int id, Vendedor vendedorAtualizado)
     {
         var vendedor = await _context.Vendedores.FindAsync(id); //encontra o vendedor pelo id
         if (vendedor == null)
-        {
-            throw new Exception("Vendedor não encontrado"); //lança uma exceção se o vendedor não for encontrado
-        }
+            return null; 
 
         //atualiza os campos do vendedor
         vendedor.Nome = vendedorAtualizado.Nome;

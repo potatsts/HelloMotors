@@ -4,6 +4,6 @@ public class AtualizarVendaDto
 {
     public DateTime DataVenda { get; set; }
     public decimal ValorFinal { get; set; }
-    public int idVendedor { get; set; }
-    public int idChassi { get; set; }
+    public int IdVendedor { get; set; }
+    public int IdChassi { get; set; }
 }

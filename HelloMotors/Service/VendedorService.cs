@@ -29,7 +29,7 @@ public class VendedorService
         return await _repositorio.CriarAsync(vendedor); //método do repositório para criar o vendedor no banco de dados
     }
 
-    public async Task<Vendedor> AtualizarAsync(int id, AtualizarVendedorDto dto)
+    public async Task<Vendedor?> AtualizarAsync(int id, AtualizarVendedorDto dto)
     {
         var vendedorAtualizado = new Vendedor //mapeamento do dto para o modelo
         {
