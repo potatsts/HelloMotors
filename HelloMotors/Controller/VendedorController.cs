@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using HelloMotors.Model;
 using HelloMotors.Repository;
 using HelloMotors.Service;
+using Dto;
 
 namespace HelloMotors.Controller;
 
@@ -25,6 +26,12 @@ public class VendedorController : ControllerBase
 
 
     //Post --> adicionar um novo vendedor
+    [HttpPost]
+    public async Task<ActionResult<Vendedor>> CriarAsync(CadastrarVendedorDto dto)
+    {
+        var vendedor = await _servico.CriarAsync(dto);
+        return Ok(vendedor);
+    }
 
     //Put --> atualizar dados de um vendedor
 
