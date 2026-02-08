@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using HelloMotors.Model;
-using HelloMotors.Repository;
 using HelloMotors.Service;
 using Dto;
 
@@ -52,5 +51,5 @@ public class VendedorController : ControllerBase
         }
         return Ok(vendedor);
     }
-    
+
 }

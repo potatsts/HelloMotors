@@ -16,8 +16,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddScoped<VendedorRepository>();
+builder.Services.AddScoped<ProprietarioRepository>();
 
 builder.Services.AddScoped<VendedorService>();
+builder.Services.AddScoped<ProprietarioService>();
 
 var app = builder.Build();
 
