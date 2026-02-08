@@ -14,7 +14,10 @@ public class VendaRepository
 
     public async Task<List<Venda>> ListarAsync()
     {
-        return await _context.Vendas.ToListAsync();
+        return await _context.Vendas
+        .Include(v => v.Veiculo)
+        .Include(v => v.Vendedor)
+        .ToListAsync();
     }
 
     public async Task<Venda?> DeletarAsync(int id)

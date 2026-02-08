@@ -4,9 +4,9 @@ namespace HelloMotors.Model;
 
 public class Veiculo
 {
-    [Key] //chave primária
+    [Key]
     public int IdChassi { get; set; }
-    [Required] //not null 
+    [Required]
     [MaxLength(20)]
     public string? Chassi { get; set; }
     public string? Modelo { get; set; }

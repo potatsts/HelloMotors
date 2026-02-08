@@ -15,15 +15,6 @@ public class VeiculoController : ControllerBase
     {
         _servico = servico;
     }
-    //Get --> listar todos os veículos
-
-    //Post --> adicionar um novo veículo
-
-    //Put --> atualizar dados de um veículo
-
-    //Delete --> deletar um veículo
-
-    //Get --> lista veículos por quilometragem filtrados por versão do sistema
     [HttpGet]
     public async Task<ActionResult<List<Veiculo>>> ListarAsync()
     {
