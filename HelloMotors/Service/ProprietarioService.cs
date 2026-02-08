@@ -1,3 +1,4 @@
+using HelloMotors.Model;
 using HelloMotors.Repository;
 
 namespace HelloMotors.Service;
@@ -11,6 +12,10 @@ public class ProprietarioService
     }
 
     //listar todos
+    public async Task<List<Proprietario>> ListarAsync()
+    {
+        return await _repositorio.ListarAsync();
+    }
     //cadastrar
     //atualizar
     //deletar

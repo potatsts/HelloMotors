@@ -16,6 +16,11 @@ public class ProprietarioController : ControllerBase
     }
 
     //Get --> listar todos os proprietários
+    [HttpGet]
+    public async Task<ActionResult<List<Proprietario>>> ListarAsync()
+    {
+        return await _servico.ListarAsync();
+    }
 
     //Post --> adicionar um novo proprietário
 
