@@ -22,6 +22,7 @@ builder.Services.AddScoped<VeiculoRepository>();
 
 builder.Services.AddScoped<VendedorService>();
 builder.Services.AddScoped<ProprietarioService>();
+builder.Services.AddScoped<VeiculoService>();
 
 var app = builder.Build();
 
