@@ -28,4 +28,9 @@ public class VendedorService
 
         return await _repositorio.CriarAsync(vendedor); //método do repositório para criar o vendedor no banco de dados
     }
+
+    public async Task<Vendedor> DeletarAsync(int id)
+    {
+        return await _repositorio.DeletarAsync(id); //método do repositório para deletar o vendedor do banco de dados
+    }
 }

@@ -36,5 +36,15 @@ public class VendedorController : ControllerBase
     //Put --> atualizar dados de um vendedor
 
     //Delete --> deletar um vendedor
-
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<Vendedor>> DeletarAsync(int id)
+    {
+        var vendedor = await _servico.DeletarAsync(id);
+        if (vendedor == null)
+        {
+            return NotFound("Vendedor não encontrado");
+        }
+        return Ok(vendedor);
+    }
+    
 }
