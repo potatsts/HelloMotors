@@ -32,6 +32,12 @@ public class ProprietarioController : ControllerBase
     }
 
     //Put --> atualizar dados de um proprietário
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Proprietario>> AtualizarAsync(int id, AtualizarProprietarioDto dto)
+    {
+        var proprietario = await _servico.AtualizarAsync(id, dto);
+        return Ok(proprietario);
+    }
 
     //Delete --> deletar um proprietário
     [HttpDelete("{id}")]

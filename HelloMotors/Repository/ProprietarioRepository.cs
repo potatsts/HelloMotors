@@ -24,7 +24,25 @@ public class ProprietarioRepository
         return proprietario;
     }
 
-    //atualizar
+    public async Task<Proprietario?> AtualizarAsync(int id, Proprietario proprietarioAtualizado)
+    {
+        var proprietario = await _context.Proprietarios.FindAsync(id);
+
+        if (proprietario == null)
+        {
+            throw new Exception("Proprietário não encontrado.");
+        }
+
+        proprietario.Nome = proprietarioAtualizado.Nome;
+        proprietario.CpfCnpj = proprietarioAtualizado.CpfCnpj;
+        proprietario.Endereco = proprietarioAtualizado.Endereco;
+        proprietario.Email = proprietarioAtualizado.Email;
+        proprietario.Telefone = proprietarioAtualizado.Telefone;
+        proprietario.DadosPessoais = proprietarioAtualizado.DadosPessoais;
+
+        await _context.SaveChangesAsync();
+        return proprietario;
+    }
 
     public async Task<Proprietario?> DeletarAsync(int id)
     {

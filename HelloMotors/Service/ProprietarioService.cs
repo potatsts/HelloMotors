@@ -29,7 +29,19 @@ public class ProprietarioService
         };
         return await _repositorio.CriarAsync(proprietario);
     }
-    //atualizar
+    public async Task<Proprietario?> AtualizarAsync(int id, AtualizarProprietarioDto dto)
+    {
+        var proprietarioAtualizado = new Proprietario
+        {
+            Nome = dto.Nome,
+            CpfCnpj = dto.CpfCnpj,
+            Endereco = dto.Endereco,
+            Email = dto.Email,
+            Telefone = dto.Telefone,
+            DadosPessoais = dto.DadosPessoais
+        };
+        return await _repositorio.AtualizarAsync(id, proprietarioAtualizado);
+    }
     public async Task<Proprietario?> DeletarAsync(int id)
     {
         return await _repositorio.DeletarAsync(id);
