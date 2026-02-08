@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using HelloMotors.Data;
 using HelloMotors.Repository;
 using HelloMotors.Service;
-using HelloMotors.Model;
+using HelloMotors.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +25,8 @@ builder.Services.AddScoped<VendedorService>();
 builder.Services.AddScoped<ProprietarioService>();
 builder.Services.AddScoped<VeiculoService>();
 builder.Services.AddScoped<VendaService>();
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 
