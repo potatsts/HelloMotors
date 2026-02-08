@@ -52,7 +52,7 @@ namespace HelloMotors.Migrations
 
                     b.HasKey("IdProprietario");
 
-                    b.ToTable("Proprietarios");
+                    b.ToTable("Proprietarios", (string)null);
                 });
 
             modelBuilder.Entity("HelloMotors.Model.Veiculo", b =>
@@ -99,7 +99,7 @@ namespace HelloMotors.Migrations
 
                     b.HasIndex("ProprietarioIdProprietario");
 
-                    b.ToTable("Veiculos");
+                    b.ToTable("Veiculos", (string)null);
                 });
 
             modelBuilder.Entity("HelloMotors.Model.Venda", b =>
@@ -134,7 +134,7 @@ namespace HelloMotors.Migrations
 
                     b.HasIndex("VendedorIdVendedor");
 
-                    b.ToTable("Vendas");
+                    b.ToTable("Vendas", (string)null);
                 });
 
             modelBuilder.Entity("HelloMotors.Model.Vendedor", b =>
@@ -155,7 +155,7 @@ namespace HelloMotors.Migrations
 
                     b.HasKey("IdVendedor");
 
-                    b.ToTable("Vendedores");
+                    b.ToTable("Vendedores", (string)null);
                 });
 
             modelBuilder.Entity("HelloMotors.Model.Veiculo", b =>

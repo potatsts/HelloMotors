@@ -6,7 +6,7 @@ using Dto;
 namespace HelloMotors.Controller;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ProprietarioController : ControllerBase
 {
     private ProprietarioService _servico;
@@ -34,4 +34,14 @@ public class ProprietarioController : ControllerBase
     //Put --> atualizar dados de um proprietário
 
     //Delete --> deletar um proprietário
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<Proprietario?>> DeletarAsync(int id)
+    {
+        var proprietario = await _servico.DeletarAsync(id);
+        if (proprietario == null)
+        {
+            return NotFound("Vendedor não encontrado");
+        }
+        return Ok(proprietario);
+    }
 }

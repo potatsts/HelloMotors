@@ -30,5 +30,8 @@ public class ProprietarioService
         return await _repositorio.CriarAsync(proprietario);
     }
     //atualizar
-    //deletar
+    public async Task<Proprietario?> DeletarAsync(int id)
+    {
+        return await _repositorio.DeletarAsync(id);
+    }
 }

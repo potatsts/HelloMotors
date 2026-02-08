@@ -19,11 +19,23 @@ public class ProprietarioRepository
 
     public async Task<Proprietario> CriarAsync(Proprietario proprietario)
     {
-        await _context.AddAsync(proprietario);
+        _context.Proprietarios.Add(proprietario);
         await _context.SaveChangesAsync();
         return proprietario;
     }
 
     //atualizar
-    //deletar
+
+    public async Task<Proprietario?> DeletarAsync(int id)
+    {
+        var proprietario = await _context.Proprietarios.FindAsync(id);
+        if (proprietario == null)
+        {
+            return null;
+        }
+
+        _context.Proprietarios.Remove(proprietario);
+        await _context.SaveChangesAsync();
+        return proprietario;
+    }
 }
