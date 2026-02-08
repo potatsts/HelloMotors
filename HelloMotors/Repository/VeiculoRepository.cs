@@ -13,7 +13,7 @@ public class VeiculoRepository
     }
     public async Task<List<Veiculo>> ListarAsync()
     {
-        return await _context.Veiculos.ToListAsync();
+        return await _context.Veiculos.Include(v => v.Proprietario).ToListAsync();
     }
     public async Task<Veiculo> InserirAsync(Veiculo veiculo)
     {
