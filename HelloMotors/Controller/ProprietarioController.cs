@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using HelloMotors.Model;
 using HelloMotors.Service;
+using Dto;
 
 namespace HelloMotors.Controller;
 
@@ -23,6 +24,12 @@ public class ProprietarioController : ControllerBase
     }
 
     //Post --> adicionar um novo proprietário
+    [HttpPost]
+    public async Task<ActionResult<Proprietario>> CriarAsync(CadastrarProprietarioDto dto)
+    {
+        var proprietario = await _servico.CriarAsync(dto);
+        return Ok(proprietario);
+    }
 
     //Put --> atualizar dados de um proprietário
 

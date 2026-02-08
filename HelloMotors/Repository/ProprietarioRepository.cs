@@ -12,12 +12,18 @@ public class ProprietarioRepository
         _context = context;
     }
 
-    //listar todos
     public async Task<List<Proprietario>> ListarAsync()
     {
         return await _context.Proprietarios.ToListAsync();
     }
-    //cadastrar
+
+    public async Task<Proprietario> CriarAsync(Proprietario proprietario)
+    {
+        await _context.AddAsync(proprietario);
+        await _context.SaveChangesAsync();
+        return proprietario;
+    }
+
     //atualizar
     //deletar
 }
