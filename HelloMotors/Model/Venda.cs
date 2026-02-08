@@ -15,4 +15,3 @@ public class Venda
     public int IdChassi { get; set; } 
     public Veiculo? Veiculo { get; set; } 
 }
-

@@ -34,6 +34,12 @@ public class VendedorController : ControllerBase
     }
 
     //Put --> atualizar dados de um vendedor
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Vendedor>> AtualizarAsync(int id, AtualizarVendedorDto dto)
+    {
+        var vendedor = await _servico.AtualizarAsync(id, dto);
+        return Ok(vendedor);
+    }
 
     //Delete --> deletar um vendedor
     [HttpDelete("{id}")]

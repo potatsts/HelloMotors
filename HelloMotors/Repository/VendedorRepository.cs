@@ -26,7 +26,23 @@ public class VendedorRepository
         return vendedor;
     }
 
-    public async Task<Vendedor> DeletarAsync(int id)
+    public async Task<Vendedor> AtualizarAsync(int id, Vendedor vendedorAtualizado)
+    {
+        var vendedor = await _context.Vendedores.FindAsync(id); //encontra o vendedor pelo id
+        if (vendedor == null)
+        {
+            throw new Exception("Vendedor não encontrado"); //lança uma exceção se o vendedor não for encontrado
+        }
+
+        //atualiza os campos do vendedor
+        vendedor.Nome = vendedorAtualizado.Nome;
+        vendedor.SalarioBase = vendedorAtualizado.SalarioBase;
+
+        await _context.SaveChangesAsync(); //salva as alterações no banco de dados
+        return vendedor; //retorna o vendedor atualizado
+    }
+
+    public async Task<Vendedor?> DeletarAsync(int id)
     {
         var vendedor = await _context.Vendedores.FindAsync(id); //encontra o vendedor pelo id
         if (vendedor == null)
