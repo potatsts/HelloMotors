@@ -14,4 +14,11 @@ public class AppDbContext : DbContext
     public DbSet<Venda> Vendas { get; set; }
     public DbSet<Vendedor> Vendedores { get; set; }
 
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder
+            .Properties<string>()
+            .AreUnicode(false);
+    }
+
 }
