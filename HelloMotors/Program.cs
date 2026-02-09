@@ -3,6 +3,7 @@ using HelloMotors.Data;
 using HelloMotors.Repository;
 using HelloMotors.Service;
 using HelloMotors.Mappings;
+using Swashbuckle.AspNetCore.Annotations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
+});
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.EnableAnnotations();
 });
 
 builder.Services.AddScoped<VendedorRepository>();

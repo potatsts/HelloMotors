@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using HelloMotors.Model;
 using HelloMotors.Service;
 using Dto;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace HelloMotors.Controller;
 
@@ -17,6 +18,7 @@ public class VendedorController : ControllerBase
     }
 
     //Get --> listar todos os vendedores
+    [SwaggerOperation(Summary = "Lista os vendedores")]
     [HttpGet]
     public async Task<ActionResult<List<Vendedor>>> ListarAsync()
     {
@@ -25,6 +27,7 @@ public class VendedorController : ControllerBase
 
 
     //Post --> adicionar um novo vendedor
+    [SwaggerOperation(Summary = "Cria o registro de um novo vendedor")]
     [HttpPost]
     public async Task<ActionResult<Vendedor>> CriarAsync(CadastrarVendedorDto dto)
     {
@@ -33,6 +36,7 @@ public class VendedorController : ControllerBase
     }
 
     //Put --> atualizar dados de um vendedor
+    [SwaggerOperation(Summary = "Atualiza os dados de um vendedor")]
     [HttpPut("{id}")]
     public async Task<ActionResult<Vendedor>> AtualizarAsync(int id, [FromBody] AtualizarVendedorDto dto)
     {
@@ -41,6 +45,7 @@ public class VendedorController : ControllerBase
     }
 
     //Delete --> deletar um vendedor
+    [SwaggerOperation(Summary = "Deleta o registro de um vendedor")]
     [HttpDelete("{id}")]
     public async Task<ActionResult<Vendedor>> DeletarAsync(int id)
     {

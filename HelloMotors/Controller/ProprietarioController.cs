@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using HelloMotors.Model;
 using HelloMotors.Service;
 using Dto;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace HelloMotors.Controller;
 
@@ -17,6 +18,7 @@ public class ProprietarioController : ControllerBase
     }
 
     //Get --> listar todos os proprietários
+    [SwaggerOperation(Summary = "Lista os proprietários")]
     [HttpGet]
     public async Task<ActionResult<List<Proprietario>>> ListarAsync()
     {
@@ -24,6 +26,7 @@ public class ProprietarioController : ControllerBase
     }
 
     //Post --> adicionar um novo proprietário
+    [SwaggerOperation(Summary = "Cria o registro de um novo proprietário")]
     [HttpPost]
     public async Task<ActionResult<Proprietario>> CriarAsync(CadastrarProprietarioDto dto)
     {
@@ -32,6 +35,7 @@ public class ProprietarioController : ControllerBase
     }
 
     //Put --> atualizar dados de um proprietário
+    [SwaggerOperation(Summary = "Atualiza os dados de um proprietário")]
     [HttpPut("{id}")]
     public async Task<ActionResult<Proprietario>> AtualizarAsync(int id, AtualizarProprietarioDto dto)
     {
@@ -40,6 +44,7 @@ public class ProprietarioController : ControllerBase
     }
 
     //Delete --> deletar um proprietário
+    [SwaggerOperation(Summary = "Deleta o registro de um proprietário")]
     [HttpDelete("{id}")]
     public async Task<ActionResult<Proprietario?>> DeletarAsync(int id)
     {
