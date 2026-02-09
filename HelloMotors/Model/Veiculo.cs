@@ -16,7 +16,7 @@ public class Veiculo
     public decimal Quilometragem { get; set; }
     public decimal Valor { get; set; }
     public string? Acessorios { get; set; }
-    public int IdProprietario { get; set; }
+    public int? IdProprietario { get; set; }
     [ForeignKey("IdProprietario")]
     public Proprietario? Proprietario { get; set; }
 }

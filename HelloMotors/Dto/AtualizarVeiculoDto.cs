@@ -6,5 +6,5 @@ public class AtualizarVeiculoDto
     public decimal Quilometragem { get; set; }
     public decimal Valor { get; set; }
     public string Acessorios { get; set; } = "";
-    public int IdProprietario { get; set; }
+    public int? IdProprietario { get; set; }
 }
