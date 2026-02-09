@@ -27,6 +27,12 @@ public class VeiculoController : ControllerBase
         return Ok(await _servico.ListarPorQuilometragemAsync(versaoSistema));
     }
 
+    [HttpGet("por-{id}")]
+    public async Task<ActionResult<List<Veiculo>>> GetPorId(int id)
+    {
+        return Ok(await _servico.GetPorId(id));
+    }
+
 
     [HttpPost]
     public async Task<ActionResult<Veiculo>> InserirAsync(CadastrarVeiculoDto dto)

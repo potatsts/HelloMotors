@@ -19,6 +19,11 @@ public class VeiculoService
         return await _repositorio.ListarAsync();
     }
 
+    public async Task<List<Veiculo>> GetPorId(int id)
+    {
+        return await _repositorio.GetPorId(id);
+    }
+
     public async Task<List<Veiculo>> ListarPorQuilometragemAsync(string versaoSistema)
     {
         return await _repositorio.ListarPorQuilometragemAsync(versaoSistema);
