@@ -21,6 +21,13 @@ public class VeiculoController : ControllerBase
         return await _servico.ListarAsync();
     }
 
+    [HttpGet("por-quilometragem/{versaoSistema}")]
+    public async Task<ActionResult<List<Veiculo>>> ListarPorQuilometragemAsync(string versaoSistema)
+    {
+        return Ok(await _servico.ListarPorQuilometragemAsync(versaoSistema));
+    }
+
+
     [HttpPost]
     public async Task<ActionResult<Veiculo>> InserirAsync(CadastrarVeiculoDto dto)
     {

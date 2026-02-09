@@ -18,6 +18,12 @@ public class VeiculoService
     {
         return await _repositorio.ListarAsync();
     }
+
+    public async Task<List<Veiculo>> ListarPorQuilometragemAsync(string versaoSistema)
+    {
+        return await _repositorio.ListarPorQuilometragemAsync(versaoSistema);
+    }
+
     public async Task<Veiculo> InserirAsync(CadastrarVeiculoDto dto)
     {
         var veiculo = _mapper.Map<Veiculo>(dto);

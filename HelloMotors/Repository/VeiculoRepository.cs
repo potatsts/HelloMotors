@@ -19,6 +19,11 @@ public class VeiculoRepository
     {
         return await _context.Veiculos.Include(v => v.Proprietario).ToListAsync();
     }
+
+    public async Task<List<Veiculo>> ListarPorQuilometragemAsync(string versaoSistema)
+    {
+        return await _context.Veiculos.Include(v => v.Proprietario).Where(v => v.VersaoSistema == versaoSistema).OrderBy(v => v.Quilometragem).ToListAsync();
+    }
     public async Task<Veiculo> InserirAsync(Veiculo veiculo)
     {
         _context.Veiculos.Add(veiculo);
