@@ -58,4 +58,5 @@ public class VendaController : ControllerBase
         }
         return Ok(venda);
     }
+
 }

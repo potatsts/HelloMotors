@@ -56,4 +56,13 @@ public class VendaRepository
         await _context.SaveChangesAsync();
         return venda;
     }
+
+    public async Task<IEnumerable<Venda>> GetVendasMes(int idVendedor, int mes, int ano)
+    {
+        return await _context.Vendas.Where(v => 
+            v.IdVendedor == idVendedor &&
+            v.DataVenda.Month == mes &&
+            v.DataVenda.Year == ano)
+            .ToListAsync();
+    }
 }

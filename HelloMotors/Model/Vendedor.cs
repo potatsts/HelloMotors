@@ -8,10 +8,7 @@ public class Vendedor
     public int IdVendedor { get; set; }
     [Required] //not null 
     [MaxLength(100)] //tamanho máximo
-    public string? Nome { get; set; }
+    public required string Nome { get; set; } 
     public decimal SalarioBase { get; set; }
 
-    //Calcular a comissão
 }
-
-

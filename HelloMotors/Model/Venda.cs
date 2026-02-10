@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 namespace HelloMotors.Model;
 
@@ -17,3 +18,4 @@ public class Venda
     [ForeignKey("IdChassi")]
     public Veiculo? Veiculo { get; set; }
 }
+
