@@ -17,19 +17,35 @@ public class VendaController : ControllerBase
         _servico = servico;
     }
 
-    [SwaggerOperation(Summary = "Lista as vendas realizadas")]
+    [SwaggerOperation(Summary = "Lista as vendas realizadas")] //feito
     [HttpGet]
     public async Task<ActionResult<List<Venda>>> ListarAsync()
     {
-        return await _servico.ListarAsync();
+        try
+        {
+            List<Venda> vendas = await _servico.ListarAsync();
+            return Ok(vendas);   
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
+
     }
 
-    [SwaggerOperation(Summary = "Registra uma nova venda")]
+    [SwaggerOperation(Summary = "Registra uma nova venda")] //feito
     [HttpPost]
     public async Task<ActionResult<Venda>> InserirAsync(CadastrarVendaDto dto)
     {
-        var venda = await _servico.InserirAsync(dto);
-        return Ok(venda);
+        try
+        {
+            var venda = await _servico.InserirAsync(dto);
+            return Created("",venda);        
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     // [SwaggerOperation(Summary = "Atualiza uma venda realizada")]
@@ -44,7 +60,7 @@ public class VendaController : ControllerBase
     //     return Ok(venda);
     // }
 
-    [SwaggerOperation(Summary = "Deleta uma venda")]
+    [SwaggerOperation(Summary = "Deleta uma venda")] //Rever===========================================================
     [HttpDelete("{id}")]
     public async Task<ActionResult<Venda>> DeletarAsync(int id)
     {

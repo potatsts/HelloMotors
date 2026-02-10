@@ -17,30 +17,54 @@ public class VeiculoController : ControllerBase
         _servico = servico;
     }
 
-    [SwaggerOperation(Summary = "Lista os veículos disponíveis")]
+    [SwaggerOperation(Summary = "Lista os veículos disponíveis")] //feito
     [HttpGet]
     public async Task<ActionResult<List<EstoqueVeiculoDto>>> ListarAsync()
     {
-        return await _servico.ListarAsync();
+        try
+        {
+            List<EstoqueVeiculoDto> estoqueVeiculoDtos = await _servico.ListarAsync();
+            return Ok(estoqueVeiculoDtos);            
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
+
     }
 
-    [SwaggerOperation(Summary = "Cria um veículo")]
+    [SwaggerOperation(Summary = "Cria um veículo")] //feito
     [HttpPost]
     public async Task<ActionResult<Veiculo>> InserirAsync(CadastrarVeiculoDto dto)
     {
-        var veiculo = await _servico.InserirAsync(dto);
-        return Ok(veiculo);
+        try
+        {
+            var veiculo = await _servico.InserirAsync(dto);
+            return Created("",veiculo);        
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
     }
 
-    [SwaggerOperation(Summary = "Altera um veículo existente")]
+    [SwaggerOperation(Summary = "Altera um veículo existente")] //feito
     [HttpPut("{id}")]
     public async Task<ActionResult<Veiculo>> AtualizarAsync(int id, AtualizarVeiculoDto dto)
     {
-        var veiculo = await _servico.AtualizarAsync(id, dto);
-        return Ok(veiculo);
+        try
+        {
+            var veiculo = await _servico.AtualizarAsync(id, dto);
+            return Ok(veiculo);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
-    [SwaggerOperation(Summary = "Deleta um veículo")]
+    [SwaggerOperation(Summary = "Deleta um veículo")] //Rever===========================================================
     [HttpDelete("{id}")]
     public async Task<ActionResult<Veiculo>> DeletarAsync(int id)
     {
@@ -52,17 +76,35 @@ public class VeiculoController : ControllerBase
         return Ok(veiculo);
     }
 
-    [SwaggerOperation(Summary = "Lista veículos ordenados por quilimetragem filtrados por versão do Sistema ")]
+    [SwaggerOperation(Summary = "Lista veículos ordenados por quilimetragem filtrados por versão do Sistema ")] //feito
     [HttpGet("por-quilometragem/{versaoSistema}")]
     public async Task<ActionResult<List<Veiculo>>> ListarPorQuilometragemAsync(string versaoSistema)
     {
-        return Ok(await _servico.ListarPorQuilometragemAsync(versaoSistema));
+        try
+        {
+            List<Veiculo> listPorQuilometragem = await _servico.ListarPorQuilometragemAsync(versaoSistema);
+            return Ok(listPorQuilometragem);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
+        
+
     }
 
-    [SwaggerOperation(Summary = "Busca veículo por Id")]
+    [SwaggerOperation(Summary = "Busca veículo por Id")] //feito
     [HttpGet("por-{id}")]
     public async Task<ActionResult<Veiculo>> GetPorId(int id)
     {
-        return Ok(await _servico.GetPorIdAsync(id));
+        try
+        {
+            var veiculo = await _servico.GetPorIdAsync(id);
+            return Ok(veiculo);            
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 }
