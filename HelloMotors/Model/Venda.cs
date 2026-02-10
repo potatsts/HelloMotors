@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 namespace HelloMotors.Model;
 
 public class Venda
@@ -12,8 +11,8 @@ public class Venda
     public decimal ValorFinal { get; set; }
     public int IdVendedor { get; set; }
     [ForeignKey("IdVendedor")]
-    public Vendedor? Vendedor { get; set; }
+    public Vendedor Vendedor { get; set; } = null!;
     public int IdChassi { get; set; }
     [ForeignKey("IdChassi")]
-    public Veiculo? Veiculo { get; set; }
+    public Veiculo Veiculo { get; set; } = null!;
 }

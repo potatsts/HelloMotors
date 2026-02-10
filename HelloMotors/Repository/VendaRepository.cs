@@ -15,7 +15,7 @@ public class VendaRepository
     public async Task<List<Venda>> ListarAsync()
     {
         return await _context.Vendas
-        .Include(v => v.Veiculo)
+        .Include(v => v.Veiculo).ThenInclude(v => v.Proprietario)
         .Include(v => v.Vendedor)
         .ToListAsync();
     }

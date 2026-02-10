@@ -61,8 +61,8 @@ public class VeiculoController : ControllerBase
 
     [SwaggerOperation(Summary = "Busca veículo por Id")]
     [HttpGet("por-{id}")]
-    public async Task<ActionResult<List<Veiculo>>> GetPorId(int id)
+    public async Task<ActionResult<Veiculo>> GetPorId(int id)
     {
-        return Ok(await _servico.GetPorId(id));
+        return Ok(await _servico.GetPorIdAsync(id));
     }
 }

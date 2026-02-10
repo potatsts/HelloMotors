@@ -16,9 +16,9 @@ public class VeiculoRepository
         _mapper = mapper;
     }
 
-    public async Task<List<Veiculo>> GetPorId(int id)
+    public async Task<Veiculo?> GetPorIdAsync(int id)
     {
-        return await _context.Veiculos.Where(v => v.IdChassi == id).ToListAsync();
+        return await _context.Veiculos.Include(v => v.Proprietario).FirstOrDefaultAsync(v => v.IdChassi == id);
     }
     public async Task<List<Veiculo>> ListarAsync()
     {

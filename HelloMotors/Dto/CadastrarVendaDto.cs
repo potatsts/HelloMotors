@@ -6,4 +6,5 @@ public class CadastrarVendaDto
     public decimal ValorFinal { get; set; }
     public int IdVendedor { get; set; }
     public int IdChassi { get; set; }
+    public int IdProprietario { get; set; }
 }

@@ -17,7 +17,7 @@ public class MappingProfile : Profile
         CreateMap<CadastrarVeiculoDto, Veiculo>();
         CreateMap<AtualizarVeiculoDto, Veiculo>();
 
-        // CreateMap<CadastrarVendaDto, Venda>();
-        // CreateMap<AtualizarVendaDto, Venda>();
+        CreateMap<CadastrarVendaDto, Venda>();
+        CreateMap<AtualizarVendaDto, Venda>();
     }
 }
