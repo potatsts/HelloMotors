@@ -8,8 +8,8 @@ namespace HelloMotors.Repository;
 
 public class VeiculoRepository
 {
-    private AppDbContext _context;
-    private IMapper _mapper;
+    private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
     public VeiculoRepository(AppDbContext context, IMapper mapper)
     {
         _context = context;

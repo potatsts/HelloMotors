@@ -17,7 +17,6 @@ public class ProprietarioController : ControllerBase
         _servico = servico;
     }
 
-    //Get --> listar todos os proprietários
     [SwaggerOperation(Summary = "Lista os proprietários")]
     [HttpGet]
     public async Task<ActionResult<List<Proprietario>>> ListarAsync()
@@ -25,7 +24,6 @@ public class ProprietarioController : ControllerBase
         return await _servico.ListarAsync();
     }
 
-    //Post --> adicionar um novo proprietário
     [SwaggerOperation(Summary = "Cria o registro de um novo proprietário")]
     [HttpPost]
     public async Task<ActionResult<Proprietario>> CriarAsync(CadastrarProprietarioDto dto)
@@ -34,7 +32,6 @@ public class ProprietarioController : ControllerBase
         return Ok(proprietario);
     }
 
-    //Put --> atualizar dados de um proprietário
     [SwaggerOperation(Summary = "Atualiza os dados de um proprietário")]
     [HttpPut("{id}")]
     public async Task<ActionResult<Proprietario>> AtualizarAsync(int id, AtualizarProprietarioDto dto)
@@ -43,7 +40,6 @@ public class ProprietarioController : ControllerBase
         return Ok(proprietario);
     }
 
-    //Delete --> deletar um proprietário
     [SwaggerOperation(Summary = "Deleta o registro de um proprietário")]
     [HttpDelete("{id}")]
     public async Task<ActionResult<Proprietario?>> DeletarAsync(int id)

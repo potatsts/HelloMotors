@@ -3,7 +3,6 @@ using HelloMotors.Data;
 using HelloMotors.Repository;
 using HelloMotors.Service;
 using HelloMotors.Mappings;
-using Swashbuckle.AspNetCore.Annotations;
 
 var builder = WebApplication.CreateBuilder(args);
 

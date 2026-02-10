@@ -25,37 +25,33 @@ public class VendedorRepository
 
     public async Task<Vendedor> CriarAsync(Vendedor vendedor)
     {
-        _context.Vendedores.Add(vendedor); //adiciona o vendedor ao contexto
-        await _context.SaveChangesAsync(); //salva as alterações no banco de dados
+        _context.Vendedores.Add(vendedor);
+        await _context.SaveChangesAsync();
         return vendedor;
     }
 
     public async Task<Vendedor?> AtualizarAsync(int id, Vendedor vendedorAtualizado)
     {
-        var vendedor = await _context.Vendedores.FindAsync(id); //encontra o vendedor pelo id
-        if (vendedor == null)
-            return null; 
+        var vendedor = await _context.Vendedores.FindAsync(id);
+        if (vendedor == null) return null;
 
-        //atualiza os campos do vendedor
         vendedor.Nome = vendedorAtualizado.Nome;
         vendedor.SalarioBase = vendedorAtualizado.SalarioBase;
 
-        await _context.SaveChangesAsync(); //salva as alterações no banco de dados
-        return vendedor; //retorna o vendedor atualizado
+        await _context.SaveChangesAsync();
+        return vendedor;
     }
 
     public async Task<Vendedor?> DeletarAsync(int id)
     {
-        var vendedor = await _context.Vendedores.FindAsync(id); //encontra o vendedor pelo id
+        var vendedor = await _context.Vendedores.FindAsync(id);
         if (vendedor == null)
         {
-            return null; //retorna null se o vendedor não for encontrado
+            return null;
         }
 
-        _context.Vendedores.Remove(vendedor); //remove o vendedor do contexto
-        await _context.SaveChangesAsync(); //salva as alterações no banco de dados
-        return vendedor; //retorna o vendedor deletado
+        _context.Vendedores.Remove(vendedor);
+        await _context.SaveChangesAsync();
+        return vendedor;
     }
-
-    //metodos incluir, alterar, excluir
 }

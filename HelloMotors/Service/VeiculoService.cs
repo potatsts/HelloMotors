@@ -7,7 +7,7 @@ namespace HelloMotors.Service;
 
 public class VeiculoService
 {
-    private VeiculoRepository _repositorio;
+    private readonly VeiculoRepository _repositorio;
     private readonly IMapper _mapper;
     public VeiculoService(VeiculoRepository repositorio, IMapper mapper)
     {

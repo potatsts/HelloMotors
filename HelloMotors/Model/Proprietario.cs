@@ -3,10 +3,10 @@ namespace HelloMotors.Model;
 
 public class Proprietario
 {
-    [Key] //chave primária
+    [Key]
     public int IdProprietario { get; set; }
-    [Required] //not null 
-    [MaxLength(100)] //tamanho máximo
+    [Required]
+    [MaxLength(100)]
     public string? Nome { get; set; }
     public string? CpfCnpj { get; set; }
     public string? Endereco { get; set; }

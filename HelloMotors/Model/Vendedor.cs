@@ -1,14 +1,13 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
 namespace HelloMotors.Model;
 
 public class Vendedor
 {
-    [Key] //chave primária
+    [Key]
     public int IdVendedor { get; set; }
-    [Required] //not null 
-    [MaxLength(100)] //tamanho máximo
-    public required string Nome { get; set; } 
+    [Required]
+    [MaxLength(100)]
+    public required string Nome { get; set; }
     public decimal SalarioBase { get; set; }
 
 }

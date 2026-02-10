@@ -1,15 +1,18 @@
 using HelloMotors.Model;
 using HelloMotors.Repository;
 using Dto;
+using AutoMapper;
 
 namespace HelloMotors.Service;
 
 public class ProprietarioService
 {
-    private ProprietarioRepository _repositorio;
-    public ProprietarioService(ProprietarioRepository repositorio)
+    private readonly ProprietarioRepository _repositorio;
+    private readonly IMapper _mapper;
+    public ProprietarioService(ProprietarioRepository repositorio, IMapper mapper)
     {
         _repositorio = repositorio;
+        _mapper = mapper;
     }
 
     public async Task<List<Proprietario>> ListarAsync()
@@ -18,29 +21,12 @@ public class ProprietarioService
     }
     public async Task<Proprietario> CriarAsync(CadastrarProprietarioDto dto)
     {
-        var proprietario = new Proprietario
-        {
-            Nome = dto.Nome,
-            CpfCnpj = dto.CpfCnpj,
-            Endereco = dto.Endereco,
-            Email = dto.Email,
-            Telefone = dto.Telefone,
-            DadosPessoais = dto.DadosPessoais
-        };
+        var proprietario = _mapper.Map<Proprietario>(dto);
         return await _repositorio.CriarAsync(proprietario);
     }
     public async Task<Proprietario?> AtualizarAsync(int id, AtualizarProprietarioDto dto)
     {
-        var proprietarioAtualizado = new Proprietario
-        {
-            Nome = dto.Nome,
-            CpfCnpj = dto.CpfCnpj,
-            Endereco = dto.Endereco,
-            Email = dto.Email,
-            Telefone = dto.Telefone,
-            DadosPessoais = dto.DadosPessoais
-        };
-        return await _repositorio.AtualizarAsync(id, proprietarioAtualizado);
+        return await _repositorio.AtualizarAsync(id, dto);
     }
     public async Task<Proprietario?> DeletarAsync(int id)
     {

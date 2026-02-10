@@ -1,4 +1,3 @@
-using System.Numerics;
 using AutoMapper;
 using Dto;
 using HelloMotors.Model;
@@ -8,8 +7,8 @@ namespace HelloMotors.Service;
 
 public class VendaService
 {
-    private VendaRepository _vendaRepositorio;
-    private VeiculoRepository _veiculoRepositorio;
+    private readonly VendaRepository _vendaRepositorio;
+    private readonly VeiculoRepository _veiculoRepositorio;
     private IMapper _mapper;
     public VendaService(VendaRepository vendaRepositorio, VeiculoRepository veiculoRepositorio, IMapper mapper)
     {
@@ -42,15 +41,15 @@ public class VendaService
         return await _vendaRepositorio.InserirAsync(venda);
     }
 
-    public async Task<Venda?> AtualizarAsync(int id, AtualizarVendaDto dto)
-    {
-        var vendaAtualizada = new Venda
-        {
-            IdChassi = dto.IdChassi,
-            IdVendedor = dto.IdVendedor,
-            DataVenda = dto.DataVenda,
-            ValorFinal = dto.ValorFinal
-        };
-        return await _vendaRepositorio.AtualizarAsync(id, vendaAtualizada);
-    }
+    // public async Task<Venda?> AtualizarAsync(int id, AtualizarVendaDto dto)
+    // {
+    //     var vendaAtualizada = new Venda
+    //     {
+    //         IdChassi = dto.IdChassi,
+    //         IdVendedor = dto.IdVendedor,
+    //         DataVenda = dto.DataVenda,
+    //         ValorFinal = dto.ValorFinal
+    //     };
+    //     return await _vendaRepositorio.AtualizarAsync(id, vendaAtualizada);
+    // }
 }

@@ -6,7 +6,7 @@ namespace HelloMotors.Repository;
 
 public class VendaRepository
 {
-    private AppDbContext _context;
+    private readonly AppDbContext _context;
     public VendaRepository(AppDbContext context)
     {
         _context = context;
@@ -40,26 +40,26 @@ public class VendaRepository
         return venda;
     }
 
-    public async Task<Venda?> AtualizarAsync(int id, Venda vendaAtualizada)
-    {
-        var venda = await _context.Vendas.FindAsync(id);
-        if (venda == null)
-        {
-            throw new Exception();
-        }
+    // public async Task<Venda?> AtualizarAsync(int id, Venda vendaAtualizada)
+    // {
+    //     var venda = await _context.Vendas.FindAsync(id);
+    //     if (venda == null)
+    //     {
+    //         throw new Exception();
+    //     }
 
-        venda.IdChassi = vendaAtualizada.IdChassi;
-        venda.IdVendedor = vendaAtualizada.IdVendedor;
-        venda.DataVenda = vendaAtualizada.DataVenda;
-        venda.ValorFinal = vendaAtualizada.ValorFinal;
+    //     venda.IdChassi = vendaAtualizada.IdChassi;
+    //     venda.IdVendedor = vendaAtualizada.IdVendedor;
+    //     venda.DataVenda = vendaAtualizada.DataVenda;
+    //     venda.ValorFinal = vendaAtualizada.ValorFinal;
 
-        await _context.SaveChangesAsync();
-        return venda;
-    }
+    //     await _context.SaveChangesAsync();
+    //     return venda;
+    // }
 
     public async Task<IEnumerable<Venda>> GetVendasMes(int idVendedor, int mes, int ano)
     {
-        return await _context.Vendas.Where(v => 
+        return await _context.Vendas.Where(v =>
             v.IdVendedor == idVendedor &&
             v.DataVenda.Month == mes &&
             v.DataVenda.Year == ano)

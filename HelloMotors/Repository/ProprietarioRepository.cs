@@ -1,3 +1,5 @@
+using AutoMapper;
+using Dto;
 using HelloMotors.Data;
 using HelloMotors.Model;
 using Microsoft.EntityFrameworkCore;
@@ -6,10 +8,12 @@ namespace HelloMotors.Repository;
 
 public class ProprietarioRepository
 {
-    private AppDbContext _context;
-    public ProprietarioRepository(AppDbContext context)
+    private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
+    public ProprietarioRepository(AppDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     public async Task<List<Proprietario>> ListarAsync()
@@ -24,21 +28,15 @@ public class ProprietarioRepository
         return proprietario;
     }
 
-    public async Task<Proprietario?> AtualizarAsync(int id, Proprietario proprietarioAtualizado)
+    public async Task<Proprietario?> AtualizarAsync(int id, AtualizarProprietarioDto dto)
     {
         var proprietario = await _context.Proprietarios.FindAsync(id);
-
         if (proprietario == null)
         {
-            throw new Exception("Proprietário não encontrado.");
+            return null;
         }
 
-        proprietario.Nome = proprietarioAtualizado.Nome;
-        proprietario.CpfCnpj = proprietarioAtualizado.CpfCnpj;
-        proprietario.Endereco = proprietarioAtualizado.Endereco;
-        proprietario.Email = proprietarioAtualizado.Email;
-        proprietario.Telefone = proprietarioAtualizado.Telefone;
-        proprietario.DadosPessoais = proprietarioAtualizado.DadosPessoais;
+        _mapper.Map(dto, proprietario);
 
         await _context.SaveChangesAsync();
         return proprietario;

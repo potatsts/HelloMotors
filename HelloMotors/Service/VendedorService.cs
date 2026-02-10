@@ -1,9 +1,7 @@
 using HelloMotors.Model;
 using HelloMotors.Repository;
 using Dto;
-using System.Reflection.Metadata.Ecma335;
 using AutoMapper;
-using HelloMotors.Migrations;
 
 namespace HelloMotors.Service;
 
@@ -25,30 +23,30 @@ public class VendedorService
         return await _vendedorRepositorio.ListarAsync();
     }
 
-    public async Task<Vendedor> CriarAsync(CadastrarVendedorDto dto) 
+    public async Task<Vendedor> CriarAsync(CadastrarVendedorDto dto)
     {
-        var vendedor = new Vendedor //mapeamento do dto para o modelo
-        {   
-            Nome = dto.Nome,
-            SalarioBase = dto.SalarioBase,
-        };
-
-        return await _vendedorRepositorio.CriarAsync(vendedor); //método do repositório para criar o vendedor no banco de dados
-    }
-
-    public async Task<Vendedor?> AtualizarAsync(int id, AtualizarVendedorDto dto)
-    {
-        var vendedorAtualizado = new Vendedor //mapeamento do dto para o modelo
+        var vendedor = new Vendedor
         {
             Nome = dto.Nome,
             SalarioBase = dto.SalarioBase,
         };
-        return await _vendedorRepositorio.AtualizarAsync(id, vendedorAtualizado); //método do repositório para atualizar o vendedor no banco de dados
+
+        return await _vendedorRepositorio.CriarAsync(vendedor);
+    }
+
+    public async Task<Vendedor?> AtualizarAsync(int id, AtualizarVendedorDto dto)
+    {
+        var vendedorAtualizado = new Vendedor
+        {
+            Nome = dto.Nome,
+            SalarioBase = dto.SalarioBase,
+        };
+        return await _vendedorRepositorio.AtualizarAsync(id, vendedorAtualizado);
     }
 
     public async Task<Vendedor?> DeletarAsync(int id)
     {
-        return await _vendedorRepositorio.DeletarAsync(id); //método do repositório para deletar o vendedor do banco de dados
+        return await _vendedorRepositorio.DeletarAsync(id);
     }
 
     public async Task<ComissaoDto?> CalcularComissao(int id, int mes, int ano)
@@ -67,12 +65,12 @@ public class VendedorService
 
         return new ComissaoDto
         {
-          IdVendedor = vendedor.IdVendedor,
-          Nome = vendedor.Nome,
-          TotalVendasMes = totalVendido,
-          SalarioBase = vendedor.SalarioBase,
-          TotalComissao = totalComissao,
-          SalarioFinal = salarioFinal
+            IdVendedor = vendedor.IdVendedor,
+            Nome = vendedor.Nome,
+            TotalVendasMes = totalVendido,
+            SalarioBase = vendedor.SalarioBase,
+            TotalComissao = totalComissao,
+            SalarioFinal = salarioFinal
         };
     }
 }

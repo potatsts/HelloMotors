@@ -16,7 +16,7 @@ public class VendaController : ControllerBase
     {
         _servico = servico;
     }
-    //Get --> listar todas as vendas
+
     [SwaggerOperation(Summary = "Lista as vendas realizadas")]
     [HttpGet]
     public async Task<ActionResult<List<Venda>>> ListarAsync()
@@ -24,7 +24,6 @@ public class VendaController : ControllerBase
         return await _servico.ListarAsync();
     }
 
-    //Post --> adicionar uma nova venda (relacionando veículo e vendedor)
     [SwaggerOperation(Summary = "Registra uma nova venda")]
     [HttpPost]
     public async Task<ActionResult<Venda>> InserirAsync(CadastrarVendaDto dto)
@@ -33,20 +32,18 @@ public class VendaController : ControllerBase
         return Ok(venda);
     }
 
-    //Put --> atualizar dados de uma venda
-    [SwaggerOperation(Summary = "Atualiza uma venda realizada")]
-    [HttpPut("{id}")]
-    public async Task<ActionResult<Venda>> AtualizarAsync(int id, AtualizarVendaDto dto)
-    {
-        var venda = await _servico.AtualizarAsync(id, dto);
-        if (venda == null)
-        {
-            return NotFound("Venda não encontrada");
-        }
-        return Ok(venda);
-    }
-    
-    //Delete --> deletar uma venda
+    // [SwaggerOperation(Summary = "Atualiza uma venda realizada")]
+    // [HttpPut("{id}")]
+    // public async Task<ActionResult<Venda>> AtualizarAsync(int id, AtualizarVendaDto dto)
+    // {
+    //     var venda = await _servico.AtualizarAsync(id, dto);
+    //     if (venda == null)
+    //     {
+    //         return NotFound("Venda não encontrada");
+    //     }
+    //     return Ok(venda);
+    // }
+
     [SwaggerOperation(Summary = "Deleta uma venda")]
     [HttpDelete("{id}")]
     public async Task<ActionResult<Venda>> DeletarAsync(int id)
