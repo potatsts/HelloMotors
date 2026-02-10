@@ -70,13 +70,9 @@ public class VendedorController : ControllerBase
         try
         {
             var vendedor = await _servico.DeletarAsync(id);
-            if (vendedor == null)
-            {
-                return NotFound("Vendedor não encontrado");
-            }
             return NoContent();          
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             return NotFound(ex.Message);
         }

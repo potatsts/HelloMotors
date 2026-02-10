@@ -46,11 +46,26 @@ public class VendedorService
 
     public async Task<Vendedor?> DeletarAsync(int id)
     {
-        return await _vendedorRepositorio.DeletarAsync(id);
+        var vendedor = await _vendedorRepositorio.DeletarAsync(id);
+        if (vendedor == null)
+        {
+            throw new InvalidOperationException("Vendedor não encontrado");
+        }
+        return vendedor;
     }
 
     public async Task<ComissaoDto?> CalcularComissao(int id, int mes, int ano)
     {
+        if (mes <= 0 || mes > 12)
+        {
+            throw new Exception("Mês inválido");
+        }
+
+        if (ano < 2026 || ano > DateTime.Now.Year)
+        {
+            throw new Exception("Ano inválido");
+        }
+
         var vendedor = await _vendedorRepositorio.GetPorId(id);
         if (vendedor == null)
         {
@@ -58,6 +73,7 @@ public class VendedorService
         }
 
         var valorVendas = await _vendaRepositorio.GetVendasMes(id, mes, ano);
+
         decimal percComissao = 0.01m;
         decimal totalVendido = valorVendas.Sum(v => v.ValorFinal);
         decimal totalComissao = totalVendido * percComissao;
