@@ -10,6 +10,7 @@ public class MappingProfile : Profile
     {
         // CreateMap<CadastrarVendedorDto, Vendedor>();
         // CreateMap<AtualizarVendedorDto, Vendedor>();
+        CreateMap<Vendedor, ComissaoDto>();
 
         // CreateMap<CadastrarProprietarioDto, Proprietario>();
         // CreateMap<AtualizarProprietarioDto, Proprietario>();

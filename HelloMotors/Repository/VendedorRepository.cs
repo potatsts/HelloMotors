@@ -18,6 +18,11 @@ public class VendedorRepository
         return await _context.Vendedores.ToListAsync();
     }
 
+    public async Task<Vendedor?> GetPorId(int id)
+    {
+        return await _context.Vendedores.FirstOrDefaultAsync(v => v.IdVendedor == id);
+    }
+
     public async Task<Vendedor> CriarAsync(Vendedor vendedor)
     {
         _context.Vendedores.Add(vendedor); //adiciona o vendedor ao contexto

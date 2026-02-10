@@ -57,4 +57,16 @@ public class VendedorController : ControllerBase
         return Ok(vendedor);
     }
 
+    [SwaggerOperation(Summary = "Ver Comissão Por Id do vendedor")]
+    [HttpGet("{idVendedor}/{mes}/{ano}")]
+    public async Task<ActionResult<ComissaoDto>> CalcularComissao(int idVendedor, int mes, int ano)
+    {   
+        var dto = await _servico.CalcularComissao(idVendedor, mes, ano);
+        if (dto == null)
+        {
+            return NotFound();
+        }
+        return Ok(dto);
+    }
+
 }
