@@ -19,7 +19,7 @@ public class VeiculoController : ControllerBase
 
     [SwaggerOperation(Summary = "Lista os veículos disponíveis")]
     [HttpGet]
-    public async Task<ActionResult<List<Veiculo>>> ListarAsync()
+    public async Task<ActionResult<List<EstoqueVeiculoDto>>> ListarAsync()
     {
         return await _servico.ListarAsync();
     }

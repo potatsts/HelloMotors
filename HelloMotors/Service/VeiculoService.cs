@@ -14,9 +14,11 @@ public class VeiculoService
         _repositorio = repositorio;
         _mapper = mapper;
     }
-    public async Task<List<Veiculo>> ListarAsync()
+    public async Task<List<EstoqueVeiculoDto>> ListarAsync()
     {
-        return await _repositorio.ListarAsync();
+        var veiculos = await _repositorio.ListarAsync();
+        var veiculoDtops = _mapper.Map<List<EstoqueVeiculoDto>>(veiculos);
+        return veiculoDtops;
     }
 
     public async Task<Veiculo?> GetPorIdAsync(int id)
