@@ -18,40 +18,27 @@ public class VendedorRepository
         return await _context.Vendedores.ToListAsync();
     }
 
-    public async Task<Vendedor?> GetPorId(int id)
+    public async Task<Vendedor?> BuscarPorIdAsync(int id)
     {
         return await _context.Vendedores.FirstOrDefaultAsync(v => v.IdVendedor == id);
     }
 
-    public async Task<Vendedor> CriarAsync(Vendedor vendedor)
+    public async Task<Vendedor> InserirAsync(Vendedor vendedor)
     {
         _context.Vendedores.Add(vendedor);
         await _context.SaveChangesAsync();
         return vendedor;
     }
 
-    public async Task<Vendedor?> AtualizarAsync(int id, Vendedor vendedorAtualizado)
+    public async Task AtualizarAsync(Vendedor vendedorAtualizado)
     {
-        var vendedor = await _context.Vendedores.FindAsync(id);
-        if (vendedor == null) return null;
-
-        vendedor.Nome = vendedorAtualizado.Nome;
-        vendedor.SalarioBase = vendedorAtualizado.SalarioBase;
-
+        _context.Vendedores.Update(vendedorAtualizado);
         await _context.SaveChangesAsync();
-        return vendedor;
     }
 
-    public async Task<Vendedor?> DeletarAsync(int id)
+    public async Task DeletarAsync(Vendedor vendedor)
     {
-        var vendedor = await _context.Vendedores.FindAsync(id);
-        if (vendedor == null)
-        {
-            return null;
-        }
-
         _context.Vendedores.Remove(vendedor);
         await _context.SaveChangesAsync();
-        return vendedor;
     }
 }

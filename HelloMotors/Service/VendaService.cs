@@ -22,18 +22,14 @@ public class VendaService
         return await _vendaRepositorio.ListarAsync();
     }
 
-    public async Task<Venda?> DeletarAsync(int id)
+    public async Task<Venda> BuscarPorIdAsync(int id)
     {
-        return await _vendaRepositorio.DeletarAsync(id);
+        return await _vendaRepositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
     }
 
     public async Task<Venda?> InserirAsync(CadastrarVendaDto dto)
     {
-        var veiculo = await _veiculoRepositorio.GetPorIdAsync(dto.IdChassi);
-        if (veiculo == null)
-        {
-            return null;
-        }
+        var veiculo = await _veiculoRepositorio.BuscarPorIdAsync(dto.IdChassi) ?? throw new InvalidOperationException();
 
         veiculo.IdProprietario = dto.IdProprietario;
         var venda = _mapper.Map<Venda>(dto);
@@ -41,15 +37,9 @@ public class VendaService
         return await _vendaRepositorio.InserirAsync(venda);
     }
 
-    // public async Task<Venda?> AtualizarAsync(int id, AtualizarVendaDto dto)
-    // {
-    //     var vendaAtualizada = new Venda
-    //     {
-    //         IdChassi = dto.IdChassi,
-    //         IdVendedor = dto.IdVendedor,
-    //         DataVenda = dto.DataVenda,
-    //         ValorFinal = dto.ValorFinal
-    //     };
-    //     return await _vendaRepositorio.AtualizarAsync(id, vendaAtualizada);
-    // }
+    public async Task DeletarAsync(int id)
+    {
+        var venda = await _vendaRepositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        await _vendaRepositorio.DeletarAsync(venda);
+    }
 }

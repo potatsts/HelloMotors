@@ -21,9 +21,9 @@ public class VeiculoService
         return veiculoDtops;
     }
 
-    public async Task<Veiculo?> GetPorIdAsync(int id)
+    public async Task<Veiculo> BuscarPorIdAsync(int id)
     {
-        return await _repositorio.GetPorIdAsync(id);
+        return await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
     }
 
     public async Task<List<Veiculo>> ListarPorQuilometragemAsync(string versaoSistema)
@@ -36,12 +36,15 @@ public class VeiculoService
         var veiculo = _mapper.Map<Veiculo>(dto);
         return await _repositorio.InserirAsync(veiculo);
     }
-    public async Task<Veiculo?> AtualizarAsync(int id, AtualizarVeiculoDto dto)
+    public async Task AtualizarAsync(int id, AtualizarVeiculoDto dto)
     {
-        return await _repositorio.AtualizarAsync(id, dto);
+        var veiculo = await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        _mapper.Map(dto, veiculo);
+        await _repositorio.AtualizarAsync(veiculo);
     }
-    public async Task<Veiculo?> DeletarAsync(int id)
+    public async Task DeletarAsync(int id)
     {
-        return await _repositorio.DeletarAsync(id);
+        var veiculo = await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        await _repositorio.DeletarAsync(veiculo);
     }
 }

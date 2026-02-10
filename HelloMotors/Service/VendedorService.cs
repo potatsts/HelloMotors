@@ -23,7 +23,12 @@ public class VendedorService
         return await _vendedorRepositorio.ListarAsync();
     }
 
-    public async Task<Vendedor> CriarAsync(CadastrarVendedorDto dto)
+    public async Task<Vendedor> BuscarPorIdAsync(int id)
+    {
+        return await _vendedorRepositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+    }
+
+    public async Task<Vendedor> InserirAsync(CadastrarVendedorDto dto)
     {
         var vendedor = new Vendedor
         {
@@ -31,27 +36,23 @@ public class VendedorService
             SalarioBase = dto.SalarioBase,
         };
 
-        return await _vendedorRepositorio.CriarAsync(vendedor);
+        return await _vendedorRepositorio.InserirAsync(vendedor);
     }
 
-    public async Task<Vendedor?> AtualizarAsync(int id, AtualizarVendedorDto dto)
+    public async Task AtualizarAsync(int id, AtualizarVendedorDto dto)
     {
-        var vendedorAtualizado = new Vendedor
-        {
-            Nome = dto.Nome,
-            SalarioBase = dto.SalarioBase,
-        };
-        return await _vendedorRepositorio.AtualizarAsync(id, vendedorAtualizado);
+        var vendedor = await _vendedorRepositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+
+        vendedor.Nome = dto.Nome;
+        vendedor.SalarioBase = dto.SalarioBase;
+
+        await _vendedorRepositorio.AtualizarAsync(vendedor);
     }
 
-    public async Task<Vendedor?> DeletarAsync(int id)
+    public async Task DeletarAsync(int id)
     {
-        var vendedor = await _vendedorRepositorio.DeletarAsync(id);
-        if (vendedor == null)
-        {
-            throw new InvalidOperationException("Vendedor não encontrado");
-        }
-        return vendedor;
+        var vendedor = await _vendedorRepositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        await _vendedorRepositorio.DeletarAsync(vendedor);
     }
 
     public async Task<ComissaoDto?> CalcularComissao(int id, int mes, int ano)
@@ -66,13 +67,13 @@ public class VendedorService
             throw new Exception("Ano inválido");
         }
 
-        var vendedor = await _vendedorRepositorio.GetPorId(id);
+        var vendedor = await _vendedorRepositorio.BuscarPorIdAsync(id);
         if (vendedor == null)
         {
             return null;
         }
 
-        var valorVendas = await _vendaRepositorio.GetVendasMes(id, mes, ano);
+        var valorVendas = await _vendaRepositorio.ListarVendasMes(id, mes, ano);
 
         decimal percComissao = 0.01m;
         decimal totalVendido = valorVendas.Sum(v => v.ValorFinal);

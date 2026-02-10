@@ -20,17 +20,18 @@ public class VendaRepository
         .ToListAsync();
     }
 
-    public async Task<Venda?> DeletarAsync(int id)
+    public async Task<Venda?> BuscarPorIdAsync(int id)
     {
-        var venda = await _context.Vendas.FindAsync(id);
-        if (venda == null)
-        {
-            return null;
-        }
+        return await _context.Vendas.FirstOrDefaultAsync(v => v.IdVenda == id);
+    }
 
-        _context.Vendas.Remove(venda);
-        await _context.SaveChangesAsync();
-        return venda;
+    public async Task<IEnumerable<Venda>> ListarVendasMes(int idVendedor, int mes, int ano)
+    {
+        return await _context.Vendas.Where(v =>
+            v.IdVendedor == idVendedor &&
+            v.DataVenda.Month == mes &&
+            v.DataVenda.Year == ano)
+            .ToListAsync();
     }
 
     public async Task<Venda> InserirAsync(Venda venda)
@@ -40,29 +41,9 @@ public class VendaRepository
         return venda;
     }
 
-    // public async Task<Venda?> AtualizarAsync(int id, Venda vendaAtualizada)
-    // {
-    //     var venda = await _context.Vendas.FindAsync(id);
-    //     if (venda == null)
-    //     {
-    //         throw new Exception();
-    //     }
-
-    //     venda.IdChassi = vendaAtualizada.IdChassi;
-    //     venda.IdVendedor = vendaAtualizada.IdVendedor;
-    //     venda.DataVenda = vendaAtualizada.DataVenda;
-    //     venda.ValorFinal = vendaAtualizada.ValorFinal;
-
-    //     await _context.SaveChangesAsync();
-    //     return venda;
-    // }
-
-    public async Task<IEnumerable<Venda>> GetVendasMes(int idVendedor, int mes, int ano)
+    public async Task DeletarAsync(Venda venda)
     {
-        return await _context.Vendas.Where(v =>
-            v.IdVendedor == idVendedor &&
-            v.DataVenda.Month == mes &&
-            v.DataVenda.Year == ano)
-            .ToListAsync();
+        _context.Vendas.Remove(venda);
+        await _context.SaveChangesAsync();
     }
 }

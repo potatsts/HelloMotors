@@ -1,5 +1,3 @@
-using AutoMapper;
-using Dto;
 using HelloMotors.Data;
 using HelloMotors.Model;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +7,9 @@ namespace HelloMotors.Repository;
 public class ProprietarioRepository
 {
     private readonly AppDbContext _context;
-    private readonly IMapper _mapper;
-    public ProprietarioRepository(AppDbContext context, IMapper mapper)
+    public ProprietarioRepository(AppDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<List<Proprietario>> ListarAsync()
@@ -21,37 +17,27 @@ public class ProprietarioRepository
         return await _context.Proprietarios.ToListAsync();
     }
 
-    public async Task<Proprietario> CriarAsync(Proprietario proprietario)
+    public async Task<Proprietario?> BuscarPorIdAsync(int id)
+    {
+        return await _context.Proprietarios.FirstOrDefaultAsync(v => v.IdProprietario == id);
+    }
+
+    public async Task<Proprietario> InserirAsync(Proprietario proprietario)
     {
         _context.Proprietarios.Add(proprietario);
         await _context.SaveChangesAsync();
         return proprietario;
     }
 
-    public async Task<Proprietario?> AtualizarAsync(int id, AtualizarProprietarioDto dto)
+    public async Task AtualizarAsync(Proprietario proprietarioAtualizado)
     {
-        var proprietario = await _context.Proprietarios.FindAsync(id);
-        if (proprietario == null)
-        {
-            return null;
-        }
-
-        _mapper.Map(dto, proprietario);
-
+        _context.Proprietarios.Update(proprietarioAtualizado);
         await _context.SaveChangesAsync();
-        return proprietario;
     }
 
-    public async Task<Proprietario?> DeletarAsync(int id)
+    public async Task DeletarAsync(Proprietario proprietario)
     {
-        var proprietario = await _context.Proprietarios.FindAsync(id);
-        if (proprietario == null)
-        {
-            return null;
-        }
-
         _context.Proprietarios.Remove(proprietario);
         await _context.SaveChangesAsync();
-        return proprietario;
     }
 }
