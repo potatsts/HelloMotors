@@ -25,7 +25,7 @@ public class VendedorService
 
     public async Task<Vendedor> BuscarPorIdAsync(int id)
     {
-        return await _vendedorRepositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        return await _vendedorRepositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Vendedor com id {id} não encontrado!");
     }
 
     public async Task<Vendedor> InserirAsync(CadastrarVendedorDto dto)
@@ -41,7 +41,7 @@ public class VendedorService
 
     public async Task AtualizarAsync(int id, AtualizarVendedorDto dto)
     {
-        var vendedor = await _vendedorRepositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        var vendedor = await _vendedorRepositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Vendedor com id {id} não encontrado!");
 
         vendedor.Nome = dto.Nome;
         vendedor.SalarioBase = dto.SalarioBase;
@@ -51,7 +51,7 @@ public class VendedorService
 
     public async Task DeletarAsync(int id)
     {
-        var vendedor = await _vendedorRepositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        var vendedor = await _vendedorRepositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Vendedor com id {id} não encontrado!");
         await _vendedorRepositorio.DeletarAsync(vendedor);
     }
 
@@ -59,18 +59,18 @@ public class VendedorService
     {
         if (mes <= 0 || mes > 12)
         {
-            throw new Exception("Mês inválido");
+            throw new ArgumentException("Mês inválido");
         }
 
         if (ano < 2026 || ano > DateTime.Now.Year)
         {
-            throw new Exception("Ano inválido");
+            throw new ArgumentException("Ano inválido");
         }
 
         var vendedor = await _vendedorRepositorio.BuscarPorIdAsync(id);
         if (vendedor == null)
         {
-            return null;
+            throw new KeyNotFoundException($"Vendedor com id {id} não encontrado");
         }
 
         var valorVendas = await _vendaRepositorio.ListarVendasMes(id, mes, ano);

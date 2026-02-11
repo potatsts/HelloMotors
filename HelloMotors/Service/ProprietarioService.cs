@@ -23,33 +23,27 @@ public class ProprietarioService
 
     public async Task<Proprietario> BuscarPorIdAsync(int id)
     {
-        return await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        return await _repositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Proprietário com id {id} não encontrado!");
     }
 
     public async Task<Proprietario> InserirAsync(CadastrarProprietarioDto dto)
     {
-        if (!ValidacaoCpf(dto.CpfCnpj) && !ValidacaoCnpj(dto.CpfCnpj))
-        {
-            throw new Exception("CPF ou CNPJ em formato inválido");
-        }
+        ValidarDocumento(dto.CpfCnpj);
         var proprietario = _mapper.Map<Proprietario>(dto);
         return await _repositorio.InserirAsync(proprietario);
     }
 
     public async Task AtualizarAsync(int id, AtualizarProprietarioDto dto)
     {
-        if (!ValidacaoCpf(dto.CpfCnpj) && !ValidacaoCnpj(dto.CpfCnpj))
-        {
-            throw new Exception("CPF ou CNPJ em formato inválido");
-        }
-        var proprietario = await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        ValidarDocumento(dto.CpfCnpj);
+        var proprietario = await _repositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Proprietário com id {id} não encontrado!");
         _mapper.Map(dto, proprietario);
         await _repositorio.AtualizarAsync(proprietario);
     }
 
     public async Task DeletarAsync(int id)
     {
-        var proprietario = await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        var proprietario = await _repositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Proprietário com id {id} não encontrado!");
         await _repositorio.DeletarAsync(proprietario);
     }
 
@@ -100,4 +94,9 @@ public class ProprietarioService
         return true;
     }
 
+    private static void ValidarDocumento(string documento)
+    {
+        if (!ValidacaoCpf(documento) && !ValidacaoCnpj(documento))
+            throw new ArgumentException("CPF ou CNPJ em formato inválido");
+    }
 }

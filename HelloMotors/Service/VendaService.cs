@@ -24,12 +24,12 @@ public class VendaService
 
     public async Task<Venda> BuscarPorIdAsync(int id)
     {
-        return await _vendaRepositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        return await _vendaRepositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Venda de id {id} não encontrada!");
     }
 
     public async Task<Venda?> InserirAsync(CadastrarVendaDto dto)
     {
-        var veiculo = await _veiculoRepositorio.BuscarPorIdAsync(dto.IdVeiculo) ?? throw new InvalidOperationException();
+        var veiculo = await _veiculoRepositorio.BuscarPorIdAsync(dto.IdVeiculo) ?? throw new KeyNotFoundException($"Venda de id {dto.IdVeiculo} não encontrada!");
 
         veiculo.IdProprietario = dto.IdProprietario;
         var venda = _mapper.Map<Venda>(dto);
@@ -39,7 +39,7 @@ public class VendaService
 
     public async Task DeletarAsync(int id)
     {
-        var venda = await _vendaRepositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        var venda = await _vendaRepositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Venda de id {id} não encontrada!");
         await _vendaRepositorio.DeletarAsync(venda);
     }
 }

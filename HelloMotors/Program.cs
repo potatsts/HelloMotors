@@ -3,6 +3,7 @@ using HelloMotors.Data;
 using HelloMotors.Repository;
 using HelloMotors.Service;
 using HelloMotors.Mappings;
+using HelloMotors.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,8 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

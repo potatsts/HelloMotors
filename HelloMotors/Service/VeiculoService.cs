@@ -23,7 +23,7 @@ public class VeiculoService
 
     public async Task<Veiculo> BuscarPorIdAsync(int id)
     {
-        return await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        return await _repositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Veículo com id {id} não encontrado!");
     }
 
     public async Task<List<Veiculo>> ListarPorQuilometragemAsync(string versaoSistema)
@@ -38,13 +38,13 @@ public class VeiculoService
     }
     public async Task AtualizarAsync(int id, AtualizarVeiculoDto dto)
     {
-        var veiculo = await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        var veiculo = await _repositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Veículo com id {id} não encontrado!");
         _mapper.Map(dto, veiculo);
         await _repositorio.AtualizarAsync(veiculo);
     }
     public async Task DeletarAsync(int id)
     {
-        var veiculo = await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
+        var veiculo = await _repositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Veículo com id {id} não encontrado!");
         await _repositorio.DeletarAsync(veiculo);
     }
 }

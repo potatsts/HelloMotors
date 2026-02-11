@@ -21,46 +21,26 @@ public class VendaController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Venda>>> ListarAsync()
     {
-        try
-        {
-            List<Venda> vendas = await _servico.ListarAsync();
-            return Ok(vendas);
-        }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
-        }
 
+        List<Venda> vendas = await _servico.ListarAsync();
+        return Ok(vendas);
     }
 
     [SwaggerOperation(Summary = "Busca venda por Id")] 
     [HttpGet("{id}")]
     public async Task<ActionResult<Venda>> GetPorId(int id)
     {
-        try
-        {
-            var venda = await _servico.BuscarPorIdAsync(id);
-            return Ok(venda);
-        }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
-        }
+        var venda = await _servico.BuscarPorIdAsync(id);
+        return Ok(venda);
     }
 
     [SwaggerOperation(Summary = "Registra uma nova venda")] 
     [HttpPost]
     public async Task<ActionResult<Venda>> InserirAsync(CadastrarVendaDto dto)
     {
-        try
-        {
-            var venda = await _servico.InserirAsync(dto);
-            return Created("", venda);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+
+        var venda = await _servico.InserirAsync(dto);
+        return Created("", venda);
     }
 
 
@@ -68,14 +48,7 @@ public class VendaController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeletarAsync(int id)
     {
-        try
-        {
-            await _servico.DeletarAsync(id);
-            return NoContent();
-        }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
-        }
+        await _servico.DeletarAsync(id);
+        return NoContent();
     }
 }
