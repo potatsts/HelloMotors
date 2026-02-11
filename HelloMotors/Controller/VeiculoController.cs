@@ -17,7 +17,7 @@ public class VeiculoController : ControllerBase
         _servico = servico;
     }
 
-    [SwaggerOperation(Summary = "Lista os veículos disponíveis")] //feito
+    [SwaggerOperation(Summary = "Lista os veículos disponíveis")] 
     [HttpGet]
     public async Task<ActionResult<List<EstoqueVeiculoDto>>> ListarAsync()
     {
@@ -32,7 +32,7 @@ public class VeiculoController : ControllerBase
         }
     }
 
-    [SwaggerOperation(Summary = "Lista veículos ordenados por quilimetragem filtrados por versão do Sistema ")] //feito
+    [SwaggerOperation(Summary = "Lista veículos ordenados por quilimetragem filtrados por versão do Sistema ")] 
     [HttpGet("por-quilometragem/{versaoSistema}")]
     public async Task<ActionResult<List<Veiculo>>> ListarPorQuilometragemAsync(string versaoSistema)
     {
@@ -47,7 +47,7 @@ public class VeiculoController : ControllerBase
         }
     }
 
-    [SwaggerOperation(Summary = "Busca veículo por Id")] //feito
+    [SwaggerOperation(Summary = "Busca veículo por Id")] 
     [HttpGet("{id}")]
     public async Task<ActionResult<Veiculo>> GetPorId(int id)
     {
@@ -62,7 +62,7 @@ public class VeiculoController : ControllerBase
         }
     }
 
-    [SwaggerOperation(Summary = "Cria um veículo")] //feito
+    [SwaggerOperation(Summary = "Cria um veículo")] 
     [HttpPost]
     public async Task<ActionResult<Veiculo>> InserirAsync(CadastrarVeiculoDto dto)
     {
@@ -78,7 +78,7 @@ public class VeiculoController : ControllerBase
 
     }
 
-    [SwaggerOperation(Summary = "Atualiza os dados de um veículo")] //feito
+    [SwaggerOperation(Summary = "Atualiza os dados de um veículo")] 
     [HttpPut("{id}")]
     public async Task<ActionResult> AtualizarAsync(int id, AtualizarVeiculoDto dto)
     {
@@ -94,7 +94,7 @@ public class VeiculoController : ControllerBase
 
     }
 
-    [SwaggerOperation(Summary = "Deleta o registro de um veículo")] //Rever===========================================================
+    [SwaggerOperation(Summary = "Deleta o registro de um veículo")] 
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeletarAsync(int id)
     {

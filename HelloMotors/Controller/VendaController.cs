@@ -17,7 +17,7 @@ public class VendaController : ControllerBase
         _servico = servico;
     }
 
-    [SwaggerOperation(Summary = "Lista as vendas realizadas")] //feito
+    [SwaggerOperation(Summary = "Lista as vendas realizadas")] 
     [HttpGet]
     public async Task<ActionResult<List<Venda>>> ListarAsync()
     {
@@ -33,7 +33,7 @@ public class VendaController : ControllerBase
 
     }
 
-    [SwaggerOperation(Summary = "Busca venda por Id")] //feito
+    [SwaggerOperation(Summary = "Busca venda por Id")] 
     [HttpGet("{id}")]
     public async Task<ActionResult<Venda>> GetPorId(int id)
     {
@@ -48,7 +48,7 @@ public class VendaController : ControllerBase
         }
     }
 
-    [SwaggerOperation(Summary = "Registra uma nova venda")] //feito
+    [SwaggerOperation(Summary = "Registra uma nova venda")] 
     [HttpPost]
     public async Task<ActionResult<Venda>> InserirAsync(CadastrarVendaDto dto)
     {
@@ -64,7 +64,7 @@ public class VendaController : ControllerBase
     }
 
 
-    [SwaggerOperation(Summary = "Deleta o registro de uma venda")] //Rever===========================================================
+    [SwaggerOperation(Summary = "Deleta o registro de uma venda")] 
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeletarAsync(int id)
     {

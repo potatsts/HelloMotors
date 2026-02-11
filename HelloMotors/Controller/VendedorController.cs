@@ -17,7 +17,7 @@ public class VendedorController : ControllerBase
         _servico = servico;
     }
 
-    [SwaggerOperation(Summary = "Lista os vendedores")] //feito
+    [SwaggerOperation(Summary = "Lista os vendedores")] 
     [HttpGet]
     public async Task<ActionResult<List<Vendedor>>> ListarAsync()
     {
@@ -32,7 +32,7 @@ public class VendedorController : ControllerBase
         }
     }
 
-    [SwaggerOperation(Summary = "Busca vendedor por Id")] //feito
+    [SwaggerOperation(Summary = "Busca vendedor por Id")] 
     [HttpGet("{id}")]
     public async Task<ActionResult<Vendedor>> GetPorId(int id)
     {
@@ -47,7 +47,7 @@ public class VendedorController : ControllerBase
         }
     }
 
-    [SwaggerOperation(Summary = "Ver Comissão Por Id do vendedor")] //feito
+    [SwaggerOperation(Summary = "Ver Comissão Por Id do vendedor")] 
     [HttpGet("{idVendedor}/{mes}/{ano}")]
     public async Task<ActionResult<ComissaoDto>> CalcularComissao(int idVendedor, int mes, int ano)
     {
@@ -67,7 +67,7 @@ public class VendedorController : ControllerBase
 
     }
 
-    [SwaggerOperation(Summary = "Cria o registro de um novo vendedor")] //feito
+    [SwaggerOperation(Summary = "Cria o registro de um novo vendedor")]
     [HttpPost]
     public async Task<ActionResult<Vendedor>> CriarAsync(CadastrarVendedorDto dto)
     {
@@ -83,7 +83,7 @@ public class VendedorController : ControllerBase
 
     }
 
-    [SwaggerOperation(Summary = "Atualiza os dados de um vendedor")] //feito
+    [SwaggerOperation(Summary = "Atualiza os dados de um vendedor")] 
     [HttpPut("{id}")]
     public async Task<ActionResult> AtualizarAsync(int id, AtualizarVendedorDto dto)
     {
@@ -99,7 +99,7 @@ public class VendedorController : ControllerBase
 
     }
 
-    [SwaggerOperation(Summary = "Deleta o registro de um vendedor")] //Rever===========================================================
+    [SwaggerOperation(Summary = "Deleta o registro de um vendedor")] 
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeletarAsync(int id)
     {
