@@ -29,7 +29,7 @@ public class VendaService
 
     public async Task<Venda?> InserirAsync(CadastrarVendaDto dto)
     {
-        var veiculo = await _veiculoRepositorio.BuscarPorIdAsync(dto.IdChassi) ?? throw new InvalidOperationException();
+        var veiculo = await _veiculoRepositorio.BuscarPorIdAsync(dto.IdVeiculo) ?? throw new InvalidOperationException();
 
         veiculo.IdProprietario = dto.IdProprietario;
         var venda = _mapper.Map<Venda>(dto);

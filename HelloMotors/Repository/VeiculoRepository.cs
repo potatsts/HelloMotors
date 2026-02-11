@@ -24,7 +24,7 @@ public class VeiculoRepository
 
     public async Task<Veiculo?> BuscarPorIdAsync(int id)
     {
-        return await _context.Veiculos.Include(v => v.Proprietario).FirstOrDefaultAsync(v => v.IdChassi == id);
+        return await _context.Veiculos.Include(v => v.Proprietario).FirstOrDefaultAsync(v => v.IdVeiculo == id);
     }
 
     public async Task<Veiculo> InserirAsync(Veiculo veiculo)

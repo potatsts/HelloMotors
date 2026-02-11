@@ -28,7 +28,7 @@ public class ProprietarioService
 
     public async Task<Proprietario> InserirAsync(CadastrarProprietarioDto dto)
     {
-        if (!ValidacaoCpf(dto.CpfCnpj) || !ValidacaoCnpj(dto.CpfCnpj))
+        if (!ValidacaoCpf(dto.CpfCnpj) && !ValidacaoCnpj(dto.CpfCnpj))
         {
             throw new Exception("CPF ou CNPJ em formato inválido");
         }
@@ -38,7 +38,7 @@ public class ProprietarioService
 
     public async Task AtualizarAsync(int id, AtualizarProprietarioDto dto)
     {
-        if (!ValidacaoCpf(dto.CpfCnpj) || !ValidacaoCnpj(dto.CpfCnpj))
+        if (!ValidacaoCpf(dto.CpfCnpj) && !ValidacaoCnpj(dto.CpfCnpj))
         {
             throw new Exception("CPF ou CNPJ em formato inválido");
         }

@@ -2,7 +2,7 @@ namespace Dto;
 
 public class EstoqueVeiculoDto
 {
-    public int IdChassi { get; set; }
+    public int IdVeiculo { get; set; }
     public string Chassi { get; set; } = "";
     public string Modelo { get; set; } = "";
     public string VersaoSistema { get; set; } = "";

@@ -8,11 +8,11 @@ public class Venda
     public int IdVenda { get; set; }
     [Required]
     public DateTime DataVenda { get; set; }
-    public decimal ValorFinal { get; set; }
-    public int IdVendedor { get; set; }
+    public required decimal ValorFinal { get; set; }
+    public required int IdVendedor { get; set; }
     [ForeignKey("IdVendedor")]
     public Vendedor Vendedor { get; set; } = null!;
-    public int IdChassi { get; set; }
-    [ForeignKey("IdChassi")]
+    public required int IdVeiculo { get; set; }
+    [ForeignKey("IdVeiculo")]
     public Veiculo Veiculo { get; set; } = null!;
 }

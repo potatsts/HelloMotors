@@ -8,6 +8,6 @@ public class Vendedor
     [Required]
     [MaxLength(100)]
     public required string Nome { get; set; }
-    public decimal SalarioBase { get; set; }
+    public required decimal SalarioBase { get; set; }
 
 }
