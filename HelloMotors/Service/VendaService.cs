@@ -29,6 +29,14 @@ public class VendaService
 
     public async Task<Venda?> InserirAsync(CadastrarVendaDto dto)
     {
+        if (dto.DataVenda > DateTime.Now)
+        {
+            throw new ArgumentException("A data não pode ser futura!");
+        }
+        if (dto.DataVenda.Year < 2026)
+        {
+            throw new ArgumentException("O ano precisa ser porterior a criação da api (2026)!");
+        }
         var veiculo = await _veiculoRepositorio.BuscarPorIdAsync(dto.IdVeiculo) ?? throw new KeyNotFoundException($"Venda de id {dto.IdVeiculo} não encontrada!");
 
         veiculo.IdProprietario = dto.IdProprietario;
