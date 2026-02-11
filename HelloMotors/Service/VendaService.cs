@@ -2,6 +2,7 @@ using AutoMapper;
 using Dto;
 using HelloMotors.Model;
 using HelloMotors.Repository;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HelloMotors.Service;
 
@@ -25,6 +26,26 @@ public class VendaService
     public async Task<Venda> BuscarPorIdAsync(int id)
     {
         return await _vendaRepositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Venda de id {id} não encontrada!");
+    }
+
+    public async Task<List<Venda>> BuscarPorVendedorIdAsync(int id)
+    {
+        var lista = await _vendaRepositorio.BuscarPorVendedorIdAsync(id);
+        if (lista.Count == 0)
+        {
+            throw new KeyNotFoundException($"Vendedor de id {id} não encontrada!");
+        }
+        return lista;
+    }
+
+    public async Task<List<Venda>> BuscarPorVeiculoIdAsync(int id)
+    {
+        var lista = await _vendaRepositorio.BuscarPorVeiculoIdAsync(id);
+        if (lista.Count == 0)
+        {
+            throw new KeyNotFoundException($"Veículo de id {id} não encontrada!");
+        }
+        return lista;
     }
 
     public async Task<Venda?> InserirAsync(CadastrarVendaDto dto)

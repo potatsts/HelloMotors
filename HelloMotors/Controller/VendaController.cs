@@ -17,7 +17,7 @@ public class VendaController : ControllerBase
         _servico = servico;
     }
 
-    [SwaggerOperation(Summary = "Lista as vendas realizadas")] 
+    [SwaggerOperation(Summary = "Lista as vendas realizadas")]
     [HttpGet]
     public async Task<ActionResult<List<Venda>>> ListarAsync()
     {
@@ -26,7 +26,7 @@ public class VendaController : ControllerBase
         return Ok(vendas);
     }
 
-    [SwaggerOperation(Summary = "Busca venda por Id")] 
+    [SwaggerOperation(Summary = "Busca venda por Id")]
     [HttpGet("{id}")]
     public async Task<ActionResult<Venda>> GetPorId(int id)
     {
@@ -34,7 +34,23 @@ public class VendaController : ControllerBase
         return Ok(venda);
     }
 
-    [SwaggerOperation(Summary = "Registra uma nova venda")] 
+    [SwaggerOperation(Summary = "Busca venda por Id de Vendedor")]
+    [HttpGet("Vendedor/{id}")]
+    public async Task<ActionResult<List<Venda>>> GetPorIdVendedor(int id)
+    {
+        var venda = await _servico.BuscarPorVendedorIdAsync(id);
+        return Ok(venda);
+    }
+
+    [SwaggerOperation(Summary = "Busca venda por Id de Veículo")]
+    [HttpGet("Veiculo/{id}")]
+    public async Task<ActionResult<List<Venda>>> GetPorIdVeiculo(int id)
+    {
+        var venda = await _servico.BuscarPorVeiculoIdAsync(id);
+        return Ok(venda);
+    }
+
+    [SwaggerOperation(Summary = "Registra uma nova venda")]
     [HttpPost]
     public async Task<ActionResult<Venda>> InserirAsync(CadastrarVendaDto dto)
     {
@@ -44,7 +60,7 @@ public class VendaController : ControllerBase
     }
 
 
-    [SwaggerOperation(Summary = "Deleta o registro de uma venda")] 
+    [SwaggerOperation(Summary = "Deleta o registro de uma venda")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeletarAsync(int id)
     {
