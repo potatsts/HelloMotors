@@ -2,6 +2,7 @@ using HelloMotors.Model;
 using HelloMotors.Repository;
 using Dto;
 using AutoMapper;
+using System.Text.RegularExpressions;
 
 namespace HelloMotors.Service;
 
@@ -27,12 +28,20 @@ public class ProprietarioService
 
     public async Task<Proprietario> CriarAsync(CadastrarProprietarioDto dto)
     {
+        if (!ValidacaoCpf(dto.CpfCnpj) || !ValidacaoCnpj(dto.CpfCnpj))
+        {
+            throw new Exception("CPF ou CNPJ em formato inválido");
+        }
         var proprietario = _mapper.Map<Proprietario>(dto);
         return await _repositorio.InserirAsync(proprietario);
     }
 
     public async Task AtualizarAsync(int id, AtualizarProprietarioDto dto)
     {
+        if (!ValidacaoCpf(dto.CpfCnpj) || !ValidacaoCnpj(dto.CpfCnpj))
+        {
+            throw new Exception("CPF ou CNPJ em formato inválido");
+        }
         var proprietario = await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
         _mapper.Map(dto, proprietario);
         await _repositorio.AtualizarAsync(proprietario);
@@ -43,4 +52,52 @@ public class ProprietarioService
         var proprietario = await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
         await _repositorio.DeletarAsync(proprietario);
     }
+
+    public static bool ValidacaoCpf(string cpf)
+    {
+        if (string.IsNullOrWhiteSpace(cpf)) return false;
+
+        string tempCpf = Regex.Replace(cpf, @"[^\d]", "");
+
+        if (tempCpf.Length != 11) return false;
+
+        string[] sequenciaInvalida =
+        {
+            "00000000000", "11111111111", "22222222222",
+            "33333333333", "44444444444", "55555555555",
+            "66666666666", "77777777777", "88888888888",
+            "99999999999"
+        };
+
+        foreach (var seq in sequenciaInvalida)
+        {
+            if (tempCpf == seq) return false;
+        }
+
+        return true;
+    }
+    public static bool ValidacaoCnpj(string cnpj)
+    {
+        if (string.IsNullOrWhiteSpace(cnpj)) return false;
+
+        string tempCnpj = Regex.Replace(cnpj, @"[^\d]", "");
+
+        if (tempCnpj.Length != 14) return false;
+
+        string[] sequenciaInvalida =
+        {
+            "00000000000000", "11111111111111", "22222222222222",
+            "33333333333333", "44444444444444", "55555555555555",
+            "66666666666666", "77777777777777", "88888888888888",
+            "99999999999999"
+        };
+
+        foreach (var seq in sequenciaInvalida)
+        {
+            if (tempCnpj == seq) return false;
+        }
+
+        return true;
+    }
+
 }
