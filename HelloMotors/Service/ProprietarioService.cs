@@ -25,7 +25,7 @@ public class ProprietarioService
         return await _repositorio.BuscarPorIdAsync(id) ?? throw new InvalidOperationException();
     }
 
-    public async Task<Proprietario> CriarAsync(CadastrarProprietarioDto dto)
+    public async Task<Proprietario> InserirAsync(CadastrarProprietarioDto dto)
     {
         var proprietario = _mapper.Map<Proprietario>(dto);
         return await _repositorio.InserirAsync(proprietario);

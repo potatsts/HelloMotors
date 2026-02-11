@@ -24,38 +24,53 @@ public class ProprietarioController : ControllerBase
         try
         {
             List<Proprietario> proprietarios = await _servico.ListarAsync();
-           return Ok(proprietarios); 
+            return Ok(proprietarios);
         }
         catch (Exception ex)
         {
             return NotFound(ex.Message);
         }
-        
+
+    }
+
+    [SwaggerOperation(Summary = "Busca proprietário por Id")] //feito
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Proprietario>> GetPorId(int id)
+    {
+        try
+        {
+            var proprietario = await _servico.BuscarPorIdAsync(id);
+            return Ok(proprietario);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [SwaggerOperation(Summary = "Cria o registro de um novo proprietário")] //feito
     [HttpPost]
-    public async Task<ActionResult<Proprietario>> CriarAsync(CadastrarProprietarioDto dto)
+    public async Task<ActionResult<Proprietario>> InserirAsync(CadastrarProprietarioDto dto)
     {
         try
         {
-            var proprietario = await _servico.CriarAsync(dto);
-            return Created("",proprietario);
+            var proprietario = await _servico.InserirAsync(dto);
+            return Created("", proprietario);
         }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
-        
+
     }
 
     [SwaggerOperation(Summary = "Atualiza os dados de um proprietário")] //feito
     [HttpPut("{id}")]
-    public async Task<ActionResult<Proprietario>> AtualizarAsync(int id, AtualizarProprietarioDto dto)
+    public async Task<ActionResult> AtualizarAsync(int id, AtualizarProprietarioDto dto)
     {
         try
         {
-            var proprietario = await _servico.AtualizarAsync(id, dto);
+            await _servico.AtualizarAsync(id, dto);
             return NoContent();
         }
         catch (Exception ex)
@@ -67,13 +82,16 @@ public class ProprietarioController : ControllerBase
 
     [SwaggerOperation(Summary = "Deleta o registro de um proprietário")] //Rever===========================================================
     [HttpDelete("{id}")]
-    public async Task<ActionResult<Proprietario?>> DeletarAsync(int id)
+    public async Task<ActionResult> DeletarAsync(int id)
     {
-        var proprietario = await _servico.DeletarAsync(id);
-        if (proprietario == null)
+        try
         {
-            return NotFound("Vendedor não encontrado");
+            await _servico.DeletarAsync(id);
+            return NoContent();
         }
-        return Ok(proprietario);
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 }
