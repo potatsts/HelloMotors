@@ -7,7 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace HelloMotors.Controller;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class VendaController : ControllerBase
 {
     private VendaService _servico;
@@ -24,13 +24,28 @@ public class VendaController : ControllerBase
         try
         {
             List<Venda> vendas = await _servico.ListarAsync();
-            return Ok(vendas);   
+            return Ok(vendas);
         }
         catch (Exception ex)
         {
             return NotFound(ex.Message);
         }
 
+    }
+
+    [SwaggerOperation(Summary = "Busca venda por Id")] //feito
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Venda>> GetPorId(int id)
+    {
+        try
+        {
+            var venda = await _servico.BuscarPorIdAsync(id);
+            return Ok(venda);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [SwaggerOperation(Summary = "Registra uma nova venda")] //feito
@@ -40,7 +55,7 @@ public class VendaController : ControllerBase
         try
         {
             var venda = await _servico.InserirAsync(dto);
-            return Created("",venda);        
+            return Created("", venda);
         }
         catch (Exception ex)
         {
@@ -48,28 +63,19 @@ public class VendaController : ControllerBase
         }
     }
 
-    // [SwaggerOperation(Summary = "Atualiza uma venda realizada")]
-    // [HttpPut("{id}")]
-    // public async Task<ActionResult<Venda>> AtualizarAsync(int id, AtualizarVendaDto dto)
-    // {
-    //     var venda = await _servico.AtualizarAsync(id, dto);
-    //     if (venda == null)
-    //     {
-    //         return NotFound("Venda não encontrada");
-    //     }
-    //     return Ok(venda);
-    // }
 
-    [SwaggerOperation(Summary = "Deleta uma venda")] //Rever===========================================================
+    [SwaggerOperation(Summary = "Deleta o registro de uma venda")] //Rever===========================================================
     [HttpDelete("{id}")]
-    public async Task<ActionResult<Venda>> DeletarAsync(int id)
+    public async Task<ActionResult> DeletarAsync(int id)
     {
-        var venda = await _servico.DeletarAsync(id);
-        if (venda == null)
+        try
         {
-            return NotFound("Venda não encontrada");
+            await _servico.DeletarAsync(id);
+            return NoContent();
         }
-        return Ok(venda);
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
-
 }
