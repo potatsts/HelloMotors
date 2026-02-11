@@ -22,7 +22,32 @@ public class VendaRepository
 
     public async Task<Venda?> BuscarPorIdAsync(int id)
     {
-        return await _context.Vendas.FirstOrDefaultAsync(v => v.IdVenda == id);
+        return await _context.Vendas
+            .Include(v => v.Vendedor)
+            .Include(v => v.Veiculo)
+                .ThenInclude(v => v.Proprietario)
+            .FirstOrDefaultAsync(v => v.IdVenda == id);
+    }
+
+    //testar
+    public async Task<List<Venda>> BuscarPorVendedorIdAsync(int id)
+    {
+        return await _context.Vendas
+            .Include(v => v.Vendedor)
+            .Include(v => v.Veiculo)
+                .ThenInclude(v => v.Proprietario)
+            .Where(v => v.Vendedor.IdVendedor == id)
+            .ToListAsync();
+    }
+
+    public async Task<List<Venda>> BuscarPorVeiculoIdAsync(int id)
+    {
+        return await _context.Vendas
+            .Include(v => v.Vendedor)
+            .Include(v => v.Veiculo)
+                .ThenInclude(v => v.Proprietario)
+            .Where(v => v.Veiculo.IdVeiculo == id)
+            .ToListAsync();
     }
 
     public async Task<IEnumerable<Venda>> ListarVendasMes(int idVendedor, int mes, int ano)

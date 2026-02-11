@@ -27,6 +27,16 @@ public class VendaService
         return await _vendaRepositorio.BuscarPorIdAsync(id) ?? throw new KeyNotFoundException($"Venda de id {id} não encontrada!");
     }
 
+    public async Task<List<Venda>> BuscarPorVendedorIdAsync(int id)
+    {
+        return await _vendaRepositorio.BuscarPorVendedorIdAsync(id) ?? throw new KeyNotFoundException($"Vendedor de id {id} não encontrada!");
+    }
+
+    public async Task<List<Venda>> BuscarPorVeiculoIdAsync(int id)
+    {
+        return await _vendaRepositorio.BuscarPorVeiculoIdAsync(id) ?? throw new KeyNotFoundException($"Veículo de id {id} não encontrada!");
+    }
+
     public async Task<Venda?> InserirAsync(CadastrarVendaDto dto)
     {
         var veiculo = await _veiculoRepositorio.BuscarPorIdAsync(dto.IdVeiculo) ?? throw new KeyNotFoundException($"Venda de id {dto.IdVeiculo} não encontrada!");
