@@ -5,8 +5,9 @@ Web API Rest para gerenciar o inventário de veículos, dados de proprietários 
 
 - Execute o comando *dotnet ef database update* para a criação do DB local.
 - Crie o appsettings.json e configure a connection string para a conexão com o servidor.
+
     
-    ```
+    ```json
     {
       "Logging": {
         "LogLevel": {
@@ -63,7 +64,7 @@ Vendedor
 
 Venda:
 
-```
+```json
 {
   "dataVenda": "2026-02-11T02:58:29.380Z",
   "valorFinal": 55000,
