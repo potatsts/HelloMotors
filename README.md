@@ -76,4 +76,4 @@ Venda:
 
 ### Modelagem:
 
-![image.png](attachment:b822b675-c07a-4b55-a202-1d39470b0f31:image.png)
+![diagrama.jpg](diagrama.jpg)
