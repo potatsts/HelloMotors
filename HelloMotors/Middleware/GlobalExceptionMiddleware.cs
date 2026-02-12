@@ -3,20 +3,20 @@ using System.Text.Json;
 
 namespace HelloMotors.Middlewares;
 
-public class GlobalExceptionMiddleware //Request → Middleware → Controller → Service → Banco
+public class GlobalExceptionMiddleware 
 {
     private readonly RequestDelegate _next;
 
-    public GlobalExceptionMiddleware(RequestDelegate next) //chama o próximo passo da pipeline, no nosso caso, o controller
+    public GlobalExceptionMiddleware(RequestDelegate next) 
     {
         _next = next; 
     }
 
-    public async Task InvokeAsync(HttpContext context)  //método obrigatório do middleware
+    public async Task InvokeAsync(HttpContext context)  
     {
         try
         {
-            await _next(context);   //se não conseguir avançar (exception) trata o erro
+            await _next(context);   
         }
         catch (ArgumentException ex)
         {
@@ -34,15 +34,15 @@ public class GlobalExceptionMiddleware //Request → Middleware → Controller �
 
     private static Task HandleExceptionAsync(HttpContext context, string message, HttpStatusCode statusCode)
     {
-        context.Response.ContentType = "application/json"; //define que a resposta será um JSON
-        context.Response.StatusCode = (int)statusCode; //define o código HTTP da resposta
+        context.Response.ContentType = "application/json"; 
+        context.Response.StatusCode = (int)statusCode; 
 
-        var response = new  //cria o objeto que será transformado em JSON
+        var response = new  
         {
             status = context.Response.StatusCode,
             error = message
         };
 
-        return context.Response.WriteAsync(JsonSerializer.Serialize(response)); //serve pra retornar o erro formatado
+        return context.Response.WriteAsync(JsonSerializer.Serialize(response)); 
     }
 }
